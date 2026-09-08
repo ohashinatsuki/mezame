@@ -9,7 +9,7 @@ source: Synchronicity（英語版ウィキペディア） | https://en.wikipedia
 source: シンクロニシティ（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%82%AF%E3%83%AD%E3%83%8B%E3%82%B7%E3%83%86%E3%82%A3 | 「共時性」という訳語、「虫の知らせ」との近さ
 source: Apophenia（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Apophenia | 無関係なもののあいだに意味のあるつながりを見る傾向。コンラート（1958）
 image: synchronicity.jpg
-image_credit: コアオハナムグリ（Cetonia aurata）。ユングが「黄金虫」の話で挙げた甲虫 ／ Public domain ／ ウィキメディア・コモンズ
+image_credit: コアオハナムグリ（Cetonia aurata）。ユングが「黄金虫」の話で挙げた甲虫 ／ Michael Gäbler ／ CC BY 3.0 ／ ウィキメディア・コモンズ
 image_source: https://commons.wikimedia.org/wiki/File:Cetonia_aurata_(Linnaeus_1761).jpg
 ---
 <p>時計を見ると、11:11。写真についた「いいね」の数が333。列に並んでいて友人のことを考えていたら、前の人が振り向いて、その友人と同じ名前を名乗った。ひとつひとつは小さなことなのに、続くと、こう思えてきます。<b>宇宙が何か言っている気がする。でも、何を言っているのかが分からない。</b></p>
