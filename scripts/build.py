@@ -328,7 +328,7 @@ def build_top(entries, news):
   <section class="hero-copy">
     <h1>世界オカルト大全</h1>
     <p>世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典です。
-    現在 <b>{n}項目</b>。<a href="bunya.html">分野</a>・<a href="kuni.html">国</a>・<a href="aiueo.html">五十音</a>から引けます。</p>
+    現在 <b>{n}項目</b>、20か国・13分野。<a href="bunya.html">分野</a>・<a href="kuni.html">国</a>・<a href="aiueo.html">五十音</a>から引けます。</p>
   </section>
   {latest}
   <section>
