@@ -241,8 +241,7 @@ MEZAME_FOOTER = """
     <a href="{u}about.html">このサイトについて</a>
     <a href="{u}privacy.html">プライバシーポリシー</a>
   </div>
-  <p><b>めざめ</b> — 皆様の目覚めのきっかけになればと思い、作成しているサイトです。
-  何も売りません。登録もいりません。</p>
+  <p><b>めざめ</b> — 皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
 </footer>
 </div>
 """
@@ -685,7 +684,7 @@ def build_mokuji(entries):
 """.format(cards="".join(mcard(e) for e in entries) or "<p>準備中です。</p>")
     write("mokuji.html",
           page("もくじ — めざめ",
-               "めざめに書いてあるものの一覧。ツインレイ、エンパス、月星座、覚醒。",
+               "めざめに書いてあるものの一覧。ツインレイ、エンパス、月星座。",
                SITE + "/mokuji.html", body, current="bunya", ogtype="website", sec="mezame"))
 
 
@@ -696,7 +695,6 @@ def build_mezame_top(entries):
     <h1>めざめ</h1>
     <p class="invite">精神世界を探索してみませんか。</p>
     <p>皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
-    <p>何も売りません。登録もいりません。</p>
   </section>
   <section>
     <div class="grid">{cards}</div>
@@ -707,7 +705,7 @@ def build_mezame_top(entries):
     write("index.html",
           page("めざめ — ツインレイ・エンパス・月星座",
                "ツインレイ、エンパス、月星座。皆様の目覚めのきっかけになればと思い、"
-               "作成しているサイトです。何も売りません。登録もいりません。",
+               "作成しているサイトです。",
                SITE + "/", body, current="top", ogtype="website", sec="mezame"))
 
 
