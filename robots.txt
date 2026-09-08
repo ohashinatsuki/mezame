@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ohashinatsuki.github.io/occult-taizen/sitemap.xml
