@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ohashinatsuki.github.io/occult-taizen/sitemap.xml
+Sitemap: https://ohashinatsuki.github.io/mezame/sitemap.xml

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""世界オカルト大全 サイト生成スクリプト
+"""めざめ／怪異と謎 サイト生成スクリプト
 
     python scripts/build.py
 
@@ -40,7 +40,8 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, "content")
 NEWS_PATH = os.path.join(ROOT, "news.json")
-SITE = "https://ohashinatsuki.github.io/occult-taizen"
+SITE = "https://ohashinatsuki.github.io/mezame"
+MEZAME = []
 
 REQUIRED = ["slug", "title", "yomi", "country", "region", "category", "summary"]
 FEATURES = []
@@ -194,13 +195,63 @@ HEAD = """<!DOCTYPE html>
 {ogimage}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="{up}style.css">
 </head>
 <body>
 
+{header}
+"""
+
+FOOT = """
+{footer}
+
+</body>
+</html>
+"""
+
+NAVKEYS = ["top", "news", "tokushu", "aiueo", "kuni", "bunya", "about"]
+
+# ── セクション定義 ───────────────────────────────────────────
+# めざめ（root）と 怪異と謎（/kaii/）。
+# めざめ側からは kaii へのリンクを一切出さない。main() の最後で機械的に検査する。
+
+MEZAME_HEADER = """
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="index.html"><span class="b1">世界オカルト大全</span><span class="b2">WORLD OCCULT ENCYCLOPEDIA</span></a>
+    <a class="brand" href="{u}index.html"><span class="b1">めざめ</span><span class="b2">AWAKENING &#183; A JAPANESE GLOSSARY</span></a>
+  </div>
+</header>
+
+<nav class="mainnav">
+  <div class="wrap">
+    <a href="{u}index.html"{c_top}>トップ</a>
+    <a href="{u}kotoba.html"{c_bunya}>ことば</a>
+    <a href="{u}tools/moon-sign.html"{c_news}>月星座を調べる</a>
+    <a href="{u}about.html"{c_about}>このサイトについて</a>
+  </div>
+</nav>
+"""
+
+MEZAME_FOOTER = """
+<div class="wrap">
+<footer>
+  <div class="fnav">
+    <a href="{u}index.html">トップ</a>
+    <a href="{u}kotoba.html">ことば</a>
+    <a href="{u}tools/moon-sign.html">月星座を調べる</a>
+    <a href="{u}about.html">このサイトについて</a>
+    <a href="{u}privacy.html">プライバシーポリシー</a>
+  </div>
+  <p><b>めざめ</b> — 英語圏で語られていることばを、日本語で説明しています。
+  何も売りません。判定もしません。どこから来た言葉で、いまどう使われているかを書いています。</p>
+</footer>
+</div>
+"""
+
+KAII_HEADER = """
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="{u}index.html"><span class="b1">怪異と謎</span><span class="b2">WORLD MYSTERIES &#183; AN ENCYCLOPEDIA</span></a>
   </div>
 </header>
 
@@ -217,7 +268,7 @@ HEAD = """<!DOCTYPE html>
 </nav>
 """
 
-FOOT = """
+KAII_FOOTER = """
 <div class="wrap">
 <footer>
   <div class="fnav">
@@ -228,34 +279,39 @@ FOOT = """
     <a href="kuni.html">国別索引</a>
     <a href="aiueo.html">五十音索引</a>
     <a href="about.html">このサイトについて</a>
-    <a href="privacy.html">プライバシーポリシー</a>
+    <a href="../privacy.html">プライバシーポリシー</a>
   </div>
-  <p><b>世界オカルト大全</b> — 世界の怪異・未確認生物・古代の謎・都市伝説を集めた事典。
-  確認されている事実と、語り伝えられている話を、分けて書いています。</p>
+  <p><b>怪異と謎</b> — 世界の怪異・未確認生物・古代の謎・都市伝説を集めた事典。
+  確認されている事実と、語り伝えられている話を、分けて書いています。
+  <a href="../index.html">めざめ</a> も同じ運営者が書いています。</p>
 </footer>
 </div>
-
-</body>
-</html>
 """
 
-NAVKEYS = ["top", "news", "tokushu", "aiueo", "kuni", "bunya", "about"]
+SEC = {
+    "mezame": {"up": "", "u": "", "header": MEZAME_HEADER, "footer": MEZAME_FOOTER},
+    "tools":  {"up": "../", "u": "../", "header": MEZAME_HEADER, "footer": MEZAME_FOOTER},
+    "kaii":   {"up": "../", "u": "", "header": KAII_HEADER, "footer": KAII_FOOTER},
+}
 
 
-def page(title, desc, canon, body, current="", ogtype="article", ogimage=""):
+def page(title, desc, canon, body, current="", ogtype="article", ogimage="", sec="kaii"):
     cur = {k: (' aria-current="page"' if k == current else "") for k in NAVKEYS}
-    og = ('<meta property="og:image" content="%s">\n' % ogimage) if ogimage else ""
+    d = SEC[sec]
+    og = ('<meta property="og:image" content="%s">' % ogimage + chr(10)) if ogimage else ""
     h = HEAD.format(title=esc(title), desc=esc(desc), canon=canon, ogtitle=esc(title),
-                    ogtype=ogtype, ogimage=og,
-                    c_top=cur["top"], c_news=cur["news"], c_tokushu=cur["tokushu"],
-                    c_aiueo=cur["aiueo"], c_kuni=cur["kuni"], c_bunya=cur["bunya"],
-                    c_about=cur["about"])
-    return h + body + FOOT
+                    ogtype=ogtype, ogimage=og, up=d["up"],
+                    header=d["header"].format(
+                        u=d["u"],
+                        c_top=cur["top"], c_news=cur["news"], c_tokushu=cur["tokushu"],
+                        c_aiueo=cur["aiueo"], c_kuni=cur["kuni"], c_bunya=cur["bunya"],
+                        c_about=cur["about"]))
+    return h + body + FOOT.format(footer=d["footer"].format(u=d["u"]))
 
 
 def card(e):
     if e.get("image"):
-        thumb = '<img src="images/%s" alt="%s" loading="lazy">' % (esc(e["image"]), esc(e["title"]))
+        thumb = '<img src="../images/%s" alt="%s" loading="lazy">' % (esc(e["image"]), esc(e["title"]))
     else:
         thumb = '<span class="noimg">%s</span>' % esc(e["title"])
     return (
@@ -281,7 +337,11 @@ def srclist(sources):
 
 
 def write(path, text):
-    io.open(os.path.join(ROOT, path), "w", encoding="utf-8", newline="\n").write(text)
+    full = os.path.join(ROOT, path)
+    d = os.path.dirname(full)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    io.open(full, "w", encoding="utf-8", newline="\n").write(text)
 
 
 def build_entry(e, entries):
@@ -295,7 +355,7 @@ def build_entry(e, entries):
         if e.get("image_source"):
             cap += ('　<a href="%s" target="_blank" rel="noopener">元ページ</a>'
                     % esc(e["image_source"]))
-        img = ('<figure class="hero"><img src="images/%s" alt="%s">'
+        img = ('<figure class="hero"><img src="../images/%s" alt="%s">'
                '<figcaption>%s</figcaption></figure>'
                % (esc(e["image"]), esc(e["title"]), cap))
     alias = ('<p class="alias">別名: %s</p>' % esc(e["aliases"])) if e.get("aliases") else ""
@@ -316,8 +376,8 @@ def build_entry(e, entries):
            alias=alias, summary=esc(e["summary"]), img=img, content=e["body"],
            src=srclist(e["sources"]), rel=rel)
     ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
-    write("%s.html" % e["slug"],
-          page("%s — 世界オカルト大全" % e["title"], e["summary"],
+    write("kaii/%s.html" % e["slug"],
+          page("%s — 怪異と謎" % e["title"], e["summary"],
                "%s/%s.html" % (SITE, e["slug"]), body, ogimage=ogimg))
 
 
@@ -354,10 +414,10 @@ def build_news(items):
 </article>
 </main>
 """.format(items=news_block(items) or "<p>まだ記事がありません。</p>")
-    write("news.html",
-          page("オカルト最新ニュース — 世界オカルト大全",
+    write("kaii/news.html",
+          page("最新ニュース — 怪異と謎",
                "世界のオカルト・未解明現象に関する出来事を週に一度まとめています。UFO・UAPの公的発表、考古学の新発見、未確認生物の目撃報道など。",
-               SITE + "/news.html", body, current="news", ogtype="website"))
+               SITE + "/kaii/news.html", body, current="news", ogtype="website"))
 
 
 def build_top(entries, news):
@@ -373,14 +433,14 @@ def build_top(entries, news):
     if news:
         latest = """
   <section class="newsband">
-    <div class="nbhead"><h2>オカルト最新ニュース</h2><a href="news.html">すべて見る →</a></div>
+    <div class="nbhead"><h2>最新ニュース</h2><a href="news.html">すべて見る →</a></div>
     {items}
   </section>
 """.format(items=news_block(news, limit=3))
     body = """
 <main class="wrap">
   <section class="hero-copy">
-    <h1>世界オカルト大全</h1>
+    <h1>怪異と謎</h1>
     <p>世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典です。
     現在 <b>{n}項目</b>、20か国・13分野。<a href="bunya.html">分野</a>・<a href="kuni.html">国</a>・<a href="aiueo.html">五十音</a>から引けます。</p>
   </section>
@@ -393,10 +453,10 @@ def build_top(entries, news):
 </main>
 """.format(n=len(entries), latest=latest, toku=toku,
            cards="".join(card(e) for e in entries))
-    write("index.html",
-          page("世界オカルト大全 — 世界の怪異と未確認現象の事典",
+    write("kaii/index.html",
+          page("怪異と謎 — 世界の怪異と未確認現象の事典",
                "世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典。%d項目を五十音・国別・分野別から引けます。オカルト最新ニュースも週1で更新。" % len(entries),
-               SITE + "/", body, current="top", ogtype="website"))
+               SITE + "/kaii/", body, current="top", ogtype="website"))
 
 
 def build_aiueo(entries):
@@ -423,9 +483,9 @@ def build_aiueo(entries):
 </article>
 </main>
 """.format(n=len(entries), nav="".join(nav), rows="".join(rows))
-    write("aiueo.html", page("五十音索引 — 世界オカルト大全",
-                             "世界オカルト大全の全項目を、読みの五十音順に並べた索引です。",
-                             SITE + "/aiueo.html", body, current="aiueo", ogtype="website"))
+    write("kaii/aiueo.html", page("五十音索引 — 怪異と謎",
+                             "怪異と謎の全項目を、読みの五十音順に並べた索引です。",
+                             SITE + "/kaii/aiueo.html", body, current="aiueo", ogtype="website"))
 
 
 def build_group(entries, key, order, fname, h1, desc, current):
@@ -450,8 +510,9 @@ def build_group(entries, key, order, fname, h1, desc, current):
 </article>
 </main>
 """.format(h1=esc(h1), desc=esc(desc), nav="".join(nav), secs="".join(secs))
-    write(fname, page("%s — 世界オカルト大全" % h1, desc, "%s/%s" % (SITE, fname),
-                      body, current=current, ogtype="website"))
+    write("kaii/" + fname, page("%s — 怪異と謎" % h1, desc,
+                                "%s/kaii/%s" % (SITE, fname),
+                                body, current=current, ogtype="website"))
 
 
 def build_feature(f, entries):
@@ -461,7 +522,7 @@ def build_feature(f, entries):
         if f.get("image_source"):
             cap += ('　<a href="%s" target="_blank" rel="noopener">元ページ</a>'
                     % esc(f["image_source"]))
-        img = ('<figure class="hero"><img src="images/%s" alt="%s">'
+        img = ('<figure class="hero"><img src="../images/%s" alt="%s">'
                '<figcaption>%s</figcaption></figure>'
                % (esc(f["image"]), esc(f["title"]), cap))
     body = """
@@ -478,14 +539,14 @@ def build_feature(f, entries):
 """.format(title=esc(f["title"]), summary=esc(f["summary"]), img=img,
            content=f["body"], src=srclist(f["sources"]))
     ogimg = "%s/images/%s" % (SITE, f["image"]) if f.get("image") else ""
-    write("%s.html" % f["slug"],
-          page("%s — 世界オカルト大全" % f["title"], f["summary"],
+    write("kaii/%s.html" % f["slug"],
+          page("%s — 怪異と謎" % f["title"], f["summary"],
                "%s/%s.html" % (SITE, f["slug"]), body, current="tokushu", ogimage=ogimg))
 
 
 def fcard(f):
     if f.get("image"):
-        thumb = '<img src="images/%s" alt="%s" loading="lazy">' % (esc(f["image"]), esc(f["title"]))
+        thumb = '<img src="../images/%s" alt="%s" loading="lazy">' % (esc(f["image"]), esc(f["title"]))
     else:
         thumb = '<span class="noimg">%s</span>' % esc(f["title"])
     return ('<a class="card" href="{slug}.html"><span class="thumb">{thumb}</span>'
@@ -506,22 +567,192 @@ def build_tokushu(features):
 </article>
 </main>
 """.format(cards="".join(fcard(f) for f in features) or "<p>準備中です。</p>")
-    write("tokushu.html",
-          page("特集 — 世界オカルト大全",
-               "世界オカルト大全の特集記事。怪異はなぜ危険な場所に現れるのか、作り物と判明しても話が残るのはなぜか、本当に説明がつかないものは何か。事典60項目を横断して読み解きます。",
-               SITE + "/tokushu.html", body, current="tokushu", ogtype="website"))
+    write("kaii/tokushu.html",
+          page("特集 — 怪異と謎",
+               "怪異と謎の特集記事。怪異はなぜ危険な場所に現れるのか、作り物と判明しても話が残るのはなぜか、本当に説明がつかないものは何か。事典60項目を横断して読み解きます。",
+               SITE + "/kaii/tokushu.html", body, current="tokushu", ogtype="website"))
+
+
+def load_mezame():
+    """mezame/*.txt を読む。めざめ側のことばの記事。
+
+        slug: moon-sign          URLになる英字。必須
+        title: 月星座             必須
+        en: moon sign            英語のもとの言い方。任意
+        yomi: つきせいざ          並び順に使う。必須
+        tags: 占星術              任意
+        summary: 一行の説明。必須
+        image / image_credit / image_source   任意
+        source: ラベル | URL | 補足    何行でも
+        ---
+        本文HTML
+    """
+    NL = chr(10)
+    SEP = NL + "---" + NL
+    d = os.path.join(ROOT, "mezame")
+    out = []
+    names = sorted(os.listdir(d)) if os.path.isdir(d) else []
+    for fn in names:
+        if not fn.endswith(".txt"):
+            continue
+        raw = io.open(os.path.join(d, fn), encoding="utf-8").read()
+        if SEP not in raw:
+            sys.exit("本文の区切り --- がありません: mezame/%s" % fn)
+        head, body = raw.split(SEP, 1)
+        e = {"sources": []}
+        for line in head.strip().split(NL):
+            if not line.strip() or line.strip().startswith("#"):
+                continue
+            k, v = line.split(":", 1)
+            k, v = k.strip(), v.strip()
+            if k == "source":
+                parts = [x.strip() for x in v.split("|")]
+                e["sources"].append(parts[:3] + [""] * (3 - len(parts)))
+            else:
+                e[k] = v
+        e["body"] = body.strip()
+        for k in ("slug", "title", "yomi", "summary"):
+            if not e.get(k):
+                sys.exit("%s が足りません: mezame/%s" % (k, fn))
+        if e.get("image") and not e.get("image_credit"):
+            sys.exit("image_credit が足りません: mezame/%s" % fn)
+        out.append(e)
+    out.sort(key=lambda x: x["yomi"])
+    slugs = [x["slug"] for x in out]
+    dup = {x for x in slugs if slugs.count(x) > 1}
+    if dup:
+        sys.exit("めざめの slug が重複しています: %s" % dup)
+    return out
+
+
+def mcard(e):
+    if e.get("image"):
+        thumb = '<img src="images/%s" alt="%s" loading="lazy">' % (esc(e["image"]), esc(e["title"]))
+    else:
+        thumb = '<span class="noimg">%s</span>' % esc(e["title"])
+    return ('<a class="card" href="{slug}.html"><span class="thumb">{thumb}</span>'
+            '<span class="cbody"><span class="ctag">{en}</span>'
+            '<span class="ctitle">{title}</span>'
+            '<span class="csum">{summary}</span></span></a>').format(
+        slug=esc(e["slug"]), thumb=thumb, en=esc(e.get("en", "") or e.get("tags", "")),
+        title=esc(e["title"]), summary=esc(e["summary"]))
+
+
+def build_mezame_entry(e, entries):
+    img = ""
+    if e.get("image"):
+        cap = esc(e["image_credit"])
+        if e.get("image_source"):
+            cap += ('　<a href="%s" target="_blank" rel="noopener">元ページ</a>'
+                    % esc(e["image_source"]))
+        img = ('<figure class="hero"><img src="images/%s" alt="%s">'
+               '<figcaption>%s</figcaption></figure>'
+               % (esc(e["image"]), esc(e["title"]), cap))
+    rel = [x for x in entries if x["slug"] != e["slug"]][:6]
+    relhtml = ('<h2>関連することば</h2><div class="grid small">%s</div>'
+               % "".join(mcard(x) for x in rel)) if rel else ""
+    en = ('<p class="crumb">%s</p>' % esc(e["en"])) if e.get("en") else ""
+    body = """
+<main class="wrap">
+<article class="entry">
+  {en}
+  <h1>{title}</h1>
+  <p class="lead">{summary}</p>
+  {img}
+  {content}
+  {src}
+  {rel}
+</article>
+</main>
+""".format(en=en, title=esc(e["title"]), summary=esc(e["summary"]), img=img,
+           content=e["body"], src=srclist(e["sources"]), rel=relhtml)
+    ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
+    write("%s.html" % e["slug"],
+          page("%s — めざめ" % e["title"], e["summary"],
+               "%s/%s.html" % (SITE, e["slug"]), body,
+               current="", ogimage=ogimg, sec="mezame"))
+
+
+def build_kotoba(entries):
+    body = """
+<main class="wrap">
+<article>
+  <h1>ことば</h1>
+  <p class="lead">英語圏で語られていることばを、日本語で説明しています。
+  どこから来た言葉で、いまどう使われているか。日本語ではどう訳されているか。
+  正しいか間違っているかは書きません。</p>
+  <div class="grid">{cards}</div>
+</article>
+</main>
+""".format(cards="".join(mcard(e) for e in entries) or "<p>準備中です。</p>")
+    write("kotoba.html",
+          page("ことば — めざめ",
+               "ツインレイ、エンパス、月星座、覚醒。英語圏で語られていることばを日本語で説明しています。"
+               "来歴と使われ方を、出典つきで。",
+               SITE + "/kotoba.html", body, current="bunya", ogtype="website", sec="mezame"))
+
+
+def build_mezame_top(entries):
+    body = """
+<main class="wrap">
+  <section class="hero-copy">
+    <h1>めざめ</h1>
+    <p>英語圏で語られていることばを、日本語で説明しています。
+    ツインレイ、エンパス、月星座、覚醒。<b>どこから来た言葉で、いまどう使われているか。</b>
+    日本語ではどう訳されていて、どこがずれているか。</p>
+    <p>正しいか間違っているかは書きません。何も売りません。登録もいりません。</p>
+  </section>
+  <section class="toolband">
+    <div class="nbhead"><h2>月星座を調べる</h2>
+      <a href="tools/moon-sign.html">ひらく &#8594;</a></div>
+    <p>生年月日と時刻から、生まれたときに月がどの星座にあったかを計算します。
+    <b>入力はこのブラウザの中だけで処理され、どこにも送信されません。</b>
+    登録もメールアドレスも必要ありません。</p>
+  </section>
+  <section>
+    <h2 class="sechead">ことば</h2>
+    <div class="grid">{cards}</div>
+  </section>
+</main>
+""".format(cards="".join(mcard(e) for e in entries) or
+           "<p>いま準備しています。もう少しお待ちください。</p>")
+    write("index.html",
+          page("めざめ — 英語圏で語られていることばを、日本語で",
+               "ツインレイ、エンパス、月星座、覚醒。英語圏で語られていることばを日本語で説明する事典です。"
+               "来歴と使われ方を出典つきで書いています。何も売りません。",
+               SITE + "/", body, current="top", ogtype="website", sec="mezame"))
+
+
+def check_walls():
+    """めざめ側のページから kaii/ へのリンクが1本でも出ていたら止める。"""
+    import glob
+    bad = []
+    files = (glob.glob(os.path.join(ROOT, "*.html"))
+             + glob.glob(os.path.join(ROOT, "tools", "*.html")))
+    for fp in files:
+        t = io.open(fp, encoding="utf-8").read()
+        for m in re.findall(r'href="([^"]+)"', t):
+            if "kaii/" in m:
+                bad.append((os.path.basename(fp), m))
+    if bad:
+        for f, h in bad:
+            print("  %s -> %s" % (f, h))
+        sys.exit("[停止] めざめ側から怪異へのリンクが見つかりました。上を直してください。")
+    print("壁の検査: めざめ側から怪異へのリンクは 0 本")
 
 
 def build_sitemap(entries):
-    urls = (["", "news.html", "tokushu.html", "aiueo.html", "kuni.html", "bunya.html",
-             "about.html", "privacy.html"]
-            + ["%s.html" % e["slug"] for e in entries]
-            + ["%s.html" % f["slug"] for f in FEATURES])
+    urls = (["", "kotoba.html", "about.html", "privacy.html"]
+            + ["%s.html" % e["slug"] for e in MEZAME]
+            + ["kaii/", "kaii/news.html", "kaii/tokushu.html", "kaii/aiueo.html",
+               "kaii/kuni.html", "kaii/bunya.html", "kaii/about.html"]
+            + ["kaii/%s.html" % e["slug"] for e in entries]
+            + ["kaii/%s.html" % f["slug"] for f in FEATURES])
     rows = "".join(
         "  <url><loc>%s/%s</loc><changefreq>%s</changefreq><priority>%s</priority></url>\n"
         % (SITE, u,
-           "weekly" if u in ("", "news.html", "tokushu.html", "aiueo.html", "kuni.html", "bunya.html") else "monthly",
-           "1.0" if u == "" else ("0.9" if u in ("news.html", "tokushu.html") else "0.7"))
+           "weekly" if u in ("", "kotoba.html", "kaii/", "kaii/news.html") else "monthly",
+           "1.0" if u == "" else ("0.9" if u in ("kotoba.html", "kaii/") else "0.7"))
         for u in urls)
     write("sitemap.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -534,8 +765,13 @@ def main():
     if not entries:
         sys.exit("content/ に項目がありません")
     news = load_news()
-    global FEATURES
+    global FEATURES, MEZAME
     FEATURES = load_features()
+    MEZAME = load_mezame()
+    for e in MEZAME:
+        build_mezame_entry(e, MEZAME)
+    build_kotoba(MEZAME)
+    build_mezame_top(MEZAME)
     for f in FEATURES:
         build_feature(f, entries)
     build_tokushu(FEATURES)
@@ -551,8 +787,9 @@ def main():
     build_sitemap(entries)
     noimg = [e["title"] for e in entries if not e.get("image")]
     nosrc = [e["title"] for e in entries if not e["sources"]]
-    print("生成完了: %d項目 / 特集%d本 / ニュース%d件 / 索引3枚"
-          % (len(entries), len(FEATURES), len(news)))
+    check_walls()
+    print("生成完了: めざめ%d / 怪異%d項目 / 特集%d本 / ニュース%d件"
+          % (len(MEZAME), len(entries), len(FEATURES), len(news)))
     print("画像なし: %d件" % len(noimg))
     if nosrc:
         print("[注意] 出典リンクなし: " + "、".join(nosrc))

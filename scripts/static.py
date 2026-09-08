@@ -1,44 +1,115 @@
 # -*- coding: utf-8 -*-
-"""固定ページ（このサイトについて／プライバシーポリシー）を作る。
+"""固定ページを作る。
 
-build.py と同じ体裁で出力する。内容を変えるときはこのファイルを直す。
     python scripts/static.py
+
+作るもの:
+  about.html        めざめ の「このサイトについて」
+  kaii/about.html   怪異と謎 の「このサイトについて」
+  privacy.html      プライバシーポリシー（両方から参照する。置き場所はルート）
+
+build.py のテンプレートをそのまま借りるので、体裁は自動でそろう。
+内容を変えるときはこのファイルを直す。
 """
 import io
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = "https://ohashinatsuki.github.io/occult-taizen"
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+sys.path.insert(0, HERE)
 
-# build.py のテンプレートを読み込んで使う
-src = io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.py"),
-              encoding="utf-8").read()
-ns = {}
-head = src.split('HEAD = """')[1].split('"""')[0]
-foot = src.split('FOOT = """')[1].split('"""')[0]
-
-
-def page(title, desc, canon, body, current=""):
-    cur = {k: (' aria-current="page"' if k == current else "")
-           for k in ["top", "aiueo", "kuni", "bunya", "about"]}
-    h = head.format(title=title, desc=desc, canon=canon, ogtitle=title,
-                    ogtype="website", ogimage="", base="",
-                    c_top=cur["top"], c_aiueo=cur["aiueo"], c_kuni=cur["kuni"],
-                    c_bunya=cur["bunya"], c_about=cur["about"])
-    return h + body + foot.format(base="")
+# build.py を読み込んで page() と SITE を借りる（main() は動かさない）
+_src = io.open(os.path.join(HERE, "build.py"), encoding="utf-8").read()
+_src = _src.replace('if __name__ == "__main__":', 'if False:')
+_ns = {"__file__": os.path.join(HERE, "build.py"), "__name__": "borrowed"}
+exec(compile(_src, "build.py", "exec"), _ns)
+page = _ns["page"]
+SITE = _ns["SITE"]
 
 
-ABOUT = """
+MEZAME_ABOUT = """
 <main class="wrap">
 <article class="entry">
   <h1>このサイトについて</h1>
 
-  <p class="lead">世界オカルト大全は、世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典です。面白い話として楽しめるように書きますが、<b>嘘は書きません。</b></p>
+  <p class="lead">めざめは、<b>英語圏で語られていることばを、日本語で説明する事典</b>です。
+  ツインレイ、エンパス、月星座、覚醒。そのことばがどこから来て、いまどう使われているか。
+  日本語ではどう訳されていて、どこがずれているか。それを書いています。</p>
+
+  <h2>このサイトがしないこと</h2>
+
+  <h3>判定しません</h3>
+  <p>あることが本当かどうかを、このサイトは決めません。
+  <b>言葉の来歴と使われ方を書くのが仕事で、読者の経験に判決を出すのは仕事ではない</b>と考えています。</p>
+  <p>心理学や医学に近い説明がある場合は紹介しますが、それは<b>置き換えるためではなく、隣に置くため</b>です。
+  同じような経験に別の言葉が与えられている、という事実をお伝えするだけで、
+  どちらが正しいとは書きません。</p>
+
+  <h3>売りません</h3>
+  <p>鑑定、占い、講座、物品の販売はしていません。それらへの紹介もしていません。
+  <b>読み終わったあとに申し込むものはありません。</b></p>
+
+  <h3>登録を求めません</h3>
+  <p>会員登録もメールアドレスの入力もありません。
+  ツールを使うときも、入力された生年月日などは<b>お使いのブラウザの中だけで計算され、
+  どこにも送信されません</b>（<a href="privacy.html">プライバシーポリシー</a>）。</p>
+
+  <h3>効果をうたいません</h3>
+  <p>健康、治癒、金運、恋愛に関する効果は書きません。「絶対に」「必ず」といった書き方もしません。</p>
+
+  <h2>書き方</h2>
+  <p>各項目は、だいたいこの順で書いています。</p>
+  <ul>
+    <li><b>この言葉はどこから来たか</b> — 誰が、いつ、どの本や文脈で使い始めたか。出典つきで</li>
+    <li><b>どう語られているか</b> — いま英語圏でどう使われているか。
+      発信者によって説明が違う場合は、その違いも書きます</li>
+    <li><b>日本語ではどうか</b> — 訳語はあるか。意味がずれていないか。
+      日本語の既存の考え方とどうつながるか</li>
+    <li><b>近いことを言っている別の言葉</b> — 心理学、医学、民俗学などで、
+      似た経験に与えられている名前</li>
+  </ul>
+  <p><b>「日本語ではどうか」がこのサイトの中心です。</b>
+  英語の説明を訳しただけのものには、この部分がありません。</p>
+
+  <h2>体調のことについて</h2>
+  <div class="note">
+    このサイトは医療の情報を提供するものではありません。
+    体の不調が続くときは、<b>受診をためらわないでください。</b>
+    「そういうものだ」と説明のつく言葉があることと、体を診てもらう必要がないことは、別のことです。
+  </div>
+
+  <h2>出典</h2>
+  <p>各項目の末尾に、参照した資料を並べています。<b>出典のない主張は書きません。</b>
+  英語の資料を読んで理解したうえで日本語で書いており、翻訳したものを載せてはいません。
+  引用する場合は、短く、原文とあわせて、出典を明記します。</p>
+
+  <h2>運営者</h2>
+  <p>柏木 亮（かしわぎ りょう）／日本・岐阜県</p>
+
+  <h2>訂正について</h2>
+  <p>誤りを見つけた場合は訂正します。とくに来歴や年代の誤りは、速やかに直します。</p>
+
+  <h2>免責</h2>
+  <p>掲載内容は、公開された資料にもとづいて作成していますが、その正確性・完全性を保証するものでは
+  ありません。当サイトの情報を利用したことによって生じた損害について、運営者は責任を負いません。
+  外部サイトへのリンク先の内容についても責任を負いません。</p>
+
+  <div class="rev"></div>
+</article>
+</main>
+"""
+
+
+KAII_ABOUT = """
+<main class="wrap">
+<article class="entry">
+  <h1>このサイトについて</h1>
+
+  <p class="lead">怪異と謎は、世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典です。面白い話として楽しめるように書きますが、<b>嘘は書きません。</b></p>
 
   <h2>書き方の約束</h2>
-  <p>オカルトを扱うサイトでいちばん大事なのは、<b>「確認されていること」と「そう言われていること」を混ぜない</b>ことだと考えています。このサイトでは、次のように書き分けます。</p>
+  <p>この分野でいちばん大事なのは、<b>「確認されていること」と「そう言われていること」を混ぜない</b>ことだと考えています。このサイトでは、次のように書き分けます。</p>
   <ul>
     <li><b>本文</b> — 何が起きたと語られているか、どう広まったかを書きます。</li>
     <li><b class="ok">確認されていること</b>と見出しの付いた枠 — 調査や公的な発表で裏付けが取れている事実だけを入れます。「作り物だと判明した」「年代測定の結果」など、話に不都合な事実もここに書きます。</li>
@@ -55,12 +126,8 @@ ABOUT = """
   </ul>
 
   <h2>画像について</h2>
-  <p>掲載している画像は、次のいずれかです。</p>
-  <ul>
-    <li><b>著作権の切れた古い図版・写真</b>（19世紀の版画、古い新聞挿絵など）。出典と権利表示を画像の下に必ず書きます。</li>
-    <li><b>AIで生成したイメージ図。</b>この場合は「AI生成のイメージ図」と明記します。</li>
-  </ul>
-  <p><b>AIで作った画像を「本物の写真」として出すことは、絶対にしません。</b>偽の証拠を本物として見せることは、このサイトがやってはいけないことだと考えています。</p>
+  <p>掲載している画像は、<b>著作権の切れた古い図版・写真、または商用利用が認められた画像</b>です。出典と権利表示を画像の下に必ず書いています。</p>
+  <p><b>AIで作った画像は1枚も使っていません。</b>偽の証拠を本物として見せることは、このサイトがやってはいけないことだと考えています。</p>
 
   <h2>索引の使い方</h2>
   <ul>
@@ -70,7 +137,7 @@ ABOUT = """
   </ul>
 
   <h2>更新について</h2>
-  <p>事典の項目は随時追加しています。あわせて、週に一度、世界のオカルト関連の出来事を確認して記録しています。</p>
+  <p>事典は60項目で一区切りとしています。あわせて、世界の関連する出来事を記録しています。</p>
 
   <h2>運営者</h2>
   <p>柏木 亮（かしわぎ りょう）／日本・岐阜県</p>
@@ -86,15 +153,23 @@ ABOUT = """
 </main>
 """
 
+
 PRIVACY = """
 <main class="wrap">
 <article class="entry">
   <h1>プライバシーポリシー</h1>
 
-  <p class="lead">世界オカルト大全（以下「当サイト」）における、利用者の情報の取り扱いについて説明します。</p>
+  <p class="lead">当サイトにおける、利用者の情報の取り扱いについて説明します。</p>
 
   <h2>当サイトが自ら集めない情報</h2>
   <p>当サイトには、会員登録、ログイン、コメント欄、購入手続きがありません。氏名、メールアドレス、住所、電話番号、決済情報などを、運営者が入力してもらって集めることはありません。</p>
+
+  <h2>ツールに入力された情報について</h2>
+  <div class="note">
+    当サイトの計算ツール（月星座など）に入力された<b>生年月日・出生時刻・出生地は、
+    お使いのブラウザの中だけで計算に使われ、当サイトのサーバーにも第三者にも送信されません。</b>
+    運営者がその内容を見ることはできません。保存もされないため、ページを閉じると消えます。
+  </div>
 
   <h2>アクセスにともなって記録される情報</h2>
   <p>当サイトは GitHub Pages（GitHub, Inc.）で公開されています。ページを表示する際、技術的な仕組みとして、同社のサーバーに IP アドレスやブラウザの種類などのアクセス情報が記録されることがあります。取り扱いは <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub プライバシーステートメント</a> に従います。</p>
@@ -131,13 +206,29 @@ PRIVACY = """
 
 
 def write(name, text):
-    io.open(os.path.join(ROOT, name), "w", encoding="utf-8", newline="\n").write(text)
+    full = os.path.join(ROOT, name)
+    d = os.path.dirname(full)
+    if d:
+        os.makedirs(d, exist_ok=True)
+    io.open(full, "w", encoding="utf-8", newline="\n").write(text)
 
 
-write("about.html", page("このサイトについて — 世界オカルト大全",
-                         "世界オカルト大全の編集方針。確認されている事実と語り伝えられている話をどう書き分けているか、何を載せないか、画像の扱いについて。",
-                         SITE + "/about.html", ABOUT, current="about"))
-write("privacy.html", page("プライバシーポリシー — 世界オカルト大全",
-                           "世界オカルト大全のプライバシーポリシー。Cookie、広告配信、アクセス情報の取り扱いについて。",
-                           SITE + "/privacy.html", PRIVACY))
-print("固定ページ 2枚を生成しました")
+write("about.html", page(
+    "このサイトについて — めざめ",
+    "めざめは、英語圏で語られていることばを日本語で説明する事典です。判定しません。売りません。"
+    "登録も求めません。書き方と方針について。",
+    SITE + "/about.html", MEZAME_ABOUT, current="about", ogtype="website", sec="mezame"))
+
+write("kaii/about.html", page(
+    "このサイトについて — 怪異と謎",
+    "怪異と謎の編集方針。確認されていることと、語り伝えられていることを分けて書いています。"
+    "載せないもの、画像の扱いについて。",
+    SITE + "/kaii/about.html", KAII_ABOUT, current="about", ogtype="website", sec="kaii"))
+
+write("privacy.html", page(
+    "プライバシーポリシー",
+    "利用者の情報の取り扱いについて。ツールに入力された生年月日はブラウザの中だけで計算され、"
+    "サーバーには送信されません。",
+    SITE + "/privacy.html", PRIVACY, current="", ogtype="website", sec="mezame"))
+
+print("固定ページ 3枚を生成しました（about / kaii/about / privacy）")
