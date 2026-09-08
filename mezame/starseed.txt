@@ -9,7 +9,7 @@ source: Star people (New Age)（英語版ウィキペディア） | https://en.w
 source: Brad Steiger（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Brad_Steiger | 提唱者の来歴
 source: インディゴチルドレン（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B4%E3%83%81%E3%83%AB%E3%83%89%E3%83%AC%E3%83%B3 | 近い考え方の来歴（1970年代タピー、1998年）と、医学の側からの懸念
 source: Belongingness（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Belongingness | 「所属の欲求」（バウマイスターとリアリー）、マズロー
-image_source: https://commons.wikimedia.org/wiki/File:Van_Gogh,_drawing_Starry_Night_over_the_Rohne.jpg
+image_source: https://commons.wikimedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg
 image: starseed.jpg
 image_credit: フィンセント・ファン・ゴッホ「ローヌ川の星月夜」（1888年） ／ Vincent van Gogh ／ Public domain ／ ウィキメディア・コモンズ
 ---
