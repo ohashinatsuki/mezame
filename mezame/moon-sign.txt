@@ -3,7 +3,7 @@ title: 月星座
 en: moon sign
 yomi: つきせいざ
 tags: 占星術
-summary: 生まれたときに月がどの星座にあったか。何を表すと言われているのか、自分のはどうやって知るのか、時刻が分からないときはどうするのか。名前と出典をつけて並べています。
+summary: 生まれたときに月がどの星座にあったか。何を表すと言われているのか、自分のはどうやって知るのか、時刻が分からないときはどうするのか。
 source: What's the difference between my Sun, Moon, and rising signs?（CHANI） | https://www.chani.com/astro-education/your-guide-to-sun-moon-and-rising-signs | 太陽・月・上昇宮それぞれの説明
 source: Orbit of the Moon（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Orbit_of_the_Moon | 月の公転周期と1日あたりの移動
 source: Sidereal and tropical astrology（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Sidereal_and_tropical_astrology | ふたつの方式の違い
@@ -15,8 +15,6 @@ image_source: https://commons.wikimedia.org/wiki/File:Lunar_phases_al-Biruni.jpg
 <p>「星座は何座？」と聞かれて答えるのは、ふつう<b>太陽星座</b>です。誕生日だけで決まるので、誰でも知っています。</p>
 
 <p>ただ、その説明を読んで<b>「自分には当てはまらない」</b>と感じたことのある人は、少なくないと思います。</p>
-
-<p class="lead2">このページは、<b>語っている人の名前と出典をつけて並べたもの</b>です。運営者の意見は書きません。当たるとも書きません。「誰が、どこで、こう言っている」という形だけです。</p>
 
 <h2>月星座は何を表すと言われているのか</h2>
 

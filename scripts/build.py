@@ -226,7 +226,6 @@ MEZAME_HEADER = """
   <div class="wrap">
     <a href="{u}index.html"{c_top}>トップ</a>
     <a href="{u}mokuji.html"{c_bunya}>もくじ</a>
-    <a href="{u}tools/moon-sign.html"{c_news}>月星座を調べる</a>
     <a href="{u}about.html"{c_about}>このサイトについて</a>
   </div>
 </nav>
@@ -242,7 +241,7 @@ MEZAME_FOOTER = """
     <a href="{u}about.html">このサイトについて</a>
     <a href="{u}privacy.html">プライバシーポリシー</a>
   </div>
-  <p><b>めざめ</b> — ツインレイ、エンパス、月星座、覚醒について書いています。
+  <p><b>めざめ</b> — 皆様の目覚めのきっかけになればと思い、作成しているサイトです。
   何も売りません。登録もいりません。</p>
 </footer>
 </div>
@@ -679,6 +678,7 @@ def build_mokuji(entries):
 <article>
   <h1>もくじ</h1>
   <p class="lead">いま書いてあるものの一覧です。</p>
+  <p class="hint">計算するもの：<a href="tools/moon-sign.html">月星座を調べる</a></p>
   <div class="grid">{cards}</div>
 </article>
 </main>
@@ -694,15 +694,9 @@ def build_mezame_top(entries):
 <main class="wrap">
   <section class="hero-copy">
     <h1>めざめ</h1>
-    <p>ツインレイ、エンパス、月星座、覚醒について書いています。
-    <b>何も売りません。登録もいりません。</b></p>
-  </section>
-  <section class="toolband">
-    <div class="nbhead"><h2>月星座を調べる</h2>
-      <a href="tools/moon-sign.html">ひらく &#8594;</a></div>
-    <p>生年月日と時刻から、生まれたときに月がどの星座にあったかを計算します。
-    <b>入力はこのブラウザの中だけで処理され、どこにも送信されません。</b>
-    登録もメールアドレスも必要ありません。</p>
+    <p class="invite">精神世界を探索してみませんか。</p>
+    <p>皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
+    <p>何も売りません。登録もいりません。</p>
   </section>
   <section>
     <div class="grid">{cards}</div>
@@ -712,8 +706,8 @@ def build_mezame_top(entries):
            "<p>いま準備しています。もう少しお待ちください。</p>")
     write("index.html",
           page("めざめ — ツインレイ・エンパス・月星座",
-               "ツインレイ、エンパス、月星座、覚醒について、出典をつけて書いています。"
-               "正しいか間違っているかは決めません。何も売りません。登録もいりません。",
+               "ツインレイ、エンパス、月星座。皆様の目覚めのきっかけになればと思い、"
+               "作成しているサイトです。何も売りません。登録もいりません。",
                SITE + "/", body, current="top", ogtype="website", sec="mezame"))
 
 

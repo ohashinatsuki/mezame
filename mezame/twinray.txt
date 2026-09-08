@@ -3,7 +3,7 @@ title: ツインレイ
 en: twin ray / twin flame
 yomi: ついんれい
 tags: 関係
-summary: 魂が二つに分かれた片割れとされる相手。どうすれば出会えるのか、いま離れているのはなぜか、そのとき何をすればよいのか。語っている人の名前と出典をつけて並べています。
+summary: 魂が二つに分かれた片割れとされる相手。どうすれば出会えるのか、いま離れているのはなぜか、そのとき何をすればよいのか。
 source: Soulmates and Twin Flames（The Summit Lighthouse） | https://summitlighthouse.org/soulmates-and-twin-flames/ | この考え方を広めたエリザベス・クレア・プロフェット側の説明
 source: Twin Flame Separation: Why It Happens + How To Heal（mindbodygreen） | https://www.mindbodygreen.com/articles/twin-flame-separation | 心理療法士・著述家など複数の名前つき発言
 source: Twin flame（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Twin_flame | 初出と広まりの経緯
@@ -16,8 +16,6 @@ image_source: https://commons.wikimedia.org/wiki/File:Portrait_of_Marie_Corelli.
 <p>魂がもともと一つで、二つに分かれた。その片方が、いまどこかで生きている。</p>
 
 <p>出会うと強く惹かれ、同時に強く揺さぶられる。うまくいかない時期がある。それでもまた戻る。</p>
-
-<p class="lead2">このページは、<b>語っている人の名前と出典をつけて並べたもの</b>です。運営者の意見は書きません。効果も約束しません。「誰が、どこで、こう言っている」という形だけで書いています。</p>
 
 <h2>どうすれば出会えるのか</h2>
 
