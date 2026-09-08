@@ -3,7 +3,7 @@ title: エンパス
 en: empath
 yomi: えんぱす
 tags: 感受性
-summary: 人の感情が流れ込んでくる、人混みで消耗する。そう感じる人が自分を説明するために使うことば。学術用語ではなく、もとはSF小説の語だった。
+summary: 人混みで消耗する、人の感情が流れ込んでくる。そう感じる人の説明として広まった呼び名。もとはSF小説から出てきたもので、HSPとは出どころがまったく違う。
 source: empath（英語版ウィクショナリー） | https://en.wiktionary.org/wiki/empath | 語源と1957年の初出用例
 source: Judith Orloff, The Empath's Survival Guide (Sounds True, 2017) | https://drjudithorloff.com/empath-survival-guide-description/ | 現在の使われ方を広めた本
 source: Aron, E. N. & Aron, A. (1997) Sensory-Processing Sensitivity and Its Relation to Introversion and Emotionality | https://www.hsperson.com/pdf/JPSP_Aron_and_Aron_97_Sensitivity_vs_I_and_N.pdf | HSPのもとになった査読論文（Journal of Personality and Social Psychology 73巻2号）
@@ -19,7 +19,7 @@ image_source: https://commons.wikimedia.org/wiki/File:Interior_with_a_Reading_La
 
 <p class="lead2">先にひとつだけ書いておきます。<b>この消耗そのものは、言葉の来歴とは関係なく起こります。</b>以下に書くのは、その経験を否定するための話ではありません。「エンパス」ということばが、どこから来て、いまどう使われているか、という話です。</p>
 
-<h2>この言葉はどこから来たか</h2>
+<h2>どこから来たのか</h2>
 
 <p>英語の <b>empath</b> は、empathy（共感）から作られた語です。</p>
 
@@ -63,7 +63,7 @@ image_source: https://commons.wikimedia.org/wiki/File:Interior_with_a_Reading_La
 
 <p>ただ、この2つは<b>出身がまったく違います。</b></p>
 
-<h2>近いことを言っている別の言葉</h2>
+<h2>近いことを言っているもの</h2>
 
 <p>ここで、置き換えるためではなく、<b>隣に置くために</b>もうひとつの言葉を紹介します。</p>
 

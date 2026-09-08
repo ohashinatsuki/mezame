@@ -218,14 +218,14 @@ NAVKEYS = ["top", "news", "tokushu", "aiueo", "kuni", "bunya", "about"]
 MEZAME_HEADER = """
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="{u}index.html"><span class="b1">めざめ</span><span class="b2">AWAKENING &#183; A JAPANESE GLOSSARY</span></a>
+    <a class="brand" href="{u}index.html"><span class="b1">めざめ</span><span class="b2">AWAKENING</span></a>
   </div>
 </header>
 
 <nav class="mainnav">
   <div class="wrap">
     <a href="{u}index.html"{c_top}>トップ</a>
-    <a href="{u}kotoba.html"{c_bunya}>ことば</a>
+    <a href="{u}mokuji.html"{c_bunya}>もくじ</a>
     <a href="{u}tools/moon-sign.html"{c_news}>月星座を調べる</a>
     <a href="{u}about.html"{c_about}>このサイトについて</a>
   </div>
@@ -237,13 +237,13 @@ MEZAME_FOOTER = """
 <footer>
   <div class="fnav">
     <a href="{u}index.html">トップ</a>
-    <a href="{u}kotoba.html">ことば</a>
+    <a href="{u}mokuji.html">もくじ</a>
     <a href="{u}tools/moon-sign.html">月星座を調べる</a>
     <a href="{u}about.html">このサイトについて</a>
     <a href="{u}privacy.html">プライバシーポリシー</a>
   </div>
-  <p><b>めざめ</b> — 英語圏で語られていることばを、日本語で説明しています。
-  何も売りません。判定もしません。どこから来た言葉で、いまどう使われているかを書いています。</p>
+  <p><b>めざめ</b> — ツインレイ、エンパス、月星座、覚醒について書いています。
+  何も売りません。登録もいりません。</p>
 </footer>
 </div>
 """
@@ -673,23 +673,20 @@ def build_mezame_entry(e, entries):
                current="", ogimage=ogimg, sec="mezame"))
 
 
-def build_kotoba(entries):
+def build_mokuji(entries):
     body = """
 <main class="wrap">
 <article>
-  <h1>ことば</h1>
-  <p class="lead">英語圏で語られていることばを、日本語で説明しています。
-  どこから来た言葉で、いまどう使われているか。日本語ではどう訳されているか。
-  正しいか間違っているかは書きません。</p>
+  <h1>もくじ</h1>
+  <p class="lead">いま書いてあるものの一覧です。</p>
   <div class="grid">{cards}</div>
 </article>
 </main>
 """.format(cards="".join(mcard(e) for e in entries) or "<p>準備中です。</p>")
-    write("kotoba.html",
-          page("ことば — めざめ",
-               "ツインレイ、エンパス、月星座、覚醒。英語圏で語られていることばを日本語で説明しています。"
-               "来歴と使われ方を、出典つきで。",
-               SITE + "/kotoba.html", body, current="bunya", ogtype="website", sec="mezame"))
+    write("mokuji.html",
+          page("もくじ — めざめ",
+               "めざめに書いてあるものの一覧。ツインレイ、エンパス、月星座、覚醒。",
+               SITE + "/mokuji.html", body, current="bunya", ogtype="website", sec="mezame"))
 
 
 def build_mezame_top(entries):
@@ -697,10 +694,8 @@ def build_mezame_top(entries):
 <main class="wrap">
   <section class="hero-copy">
     <h1>めざめ</h1>
-    <p>英語圏で語られていることばを、日本語で説明しています。
-    ツインレイ、エンパス、月星座、覚醒。<b>どこから来た言葉で、いまどう使われているか。</b>
-    日本語ではどう訳されていて、どこがずれているか。</p>
-    <p>正しいか間違っているかは書きません。何も売りません。登録もいりません。</p>
+    <p>ツインレイ、エンパス、月星座、覚醒について書いています。
+    <b>何も売りません。登録もいりません。</b></p>
   </section>
   <section class="toolband">
     <div class="nbhead"><h2>月星座を調べる</h2>
@@ -710,16 +705,15 @@ def build_mezame_top(entries):
     登録もメールアドレスも必要ありません。</p>
   </section>
   <section>
-    <h2 class="sechead">ことば</h2>
     <div class="grid">{cards}</div>
   </section>
 </main>
 """.format(cards="".join(mcard(e) for e in entries) or
            "<p>いま準備しています。もう少しお待ちください。</p>")
     write("index.html",
-          page("めざめ — 英語圏で語られていることばを、日本語で",
-               "ツインレイ、エンパス、月星座、覚醒。英語圏で語られていることばを日本語で説明する事典です。"
-               "来歴と使われ方を出典つきで書いています。何も売りません。",
+          page("めざめ — ツインレイ・エンパス・月星座",
+               "ツインレイ、エンパス、月星座、覚醒について、出典をつけて書いています。"
+               "正しいか間違っているかは決めません。何も売りません。登録もいりません。",
                SITE + "/", body, current="top", ogtype="website", sec="mezame"))
 
 
@@ -742,7 +736,7 @@ def check_walls():
 
 
 def build_sitemap(entries):
-    urls = (["", "kotoba.html", "about.html", "privacy.html"]
+    urls = (["", "mokuji.html", "about.html", "privacy.html"]
             + ["%s.html" % e["slug"] for e in MEZAME]
             + ["kaii/", "kaii/news.html", "kaii/tokushu.html", "kaii/aiueo.html",
                "kaii/kuni.html", "kaii/bunya.html", "kaii/about.html"]
@@ -751,8 +745,8 @@ def build_sitemap(entries):
     rows = "".join(
         "  <url><loc>%s/%s</loc><changefreq>%s</changefreq><priority>%s</priority></url>\n"
         % (SITE, u,
-           "weekly" if u in ("", "kotoba.html", "kaii/", "kaii/news.html") else "monthly",
-           "1.0" if u == "" else ("0.9" if u in ("kotoba.html", "kaii/") else "0.7"))
+           "weekly" if u in ("", "mokuji.html", "kaii/", "kaii/news.html") else "monthly",
+           "1.0" if u == "" else ("0.9" if u in ("mokuji.html", "kaii/") else "0.7"))
         for u in urls)
     write("sitemap.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -770,7 +764,7 @@ def main():
     MEZAME = load_mezame()
     for e in MEZAME:
         build_mezame_entry(e, MEZAME)
-    build_kotoba(MEZAME)
+    build_mokuji(MEZAME)
     build_mezame_top(MEZAME)
     for f in FEATURES:
         build_feature(f, entries)

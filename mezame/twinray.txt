@@ -3,7 +3,7 @@ title: ツインレイ
 en: twin flame / twin ray
 yomi: ついんれい
 tags: 関係
-summary: 魂が二つに分かれた片割れとされる相手。英語圏で主流の言い方は twin flame だが、日本語では twin ray のほうが定着した。この入れ替わりの経緯は、確かな資料では確認できていない。
+summary: 魂が二つに分かれた片割れとされる相手。1886年の小説にさかのぼり、1970年代のアメリカの宗教運動が広めた。日本語で「ツインレイ」が定着した経緯は、確かな資料では確認できていない。
 source: Twin flame（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Twin_flame | 語の初出と広まりの経緯
 source: Marie Corelli, A Romance of Two Worlds (1886) | https://www.gutenberg.org/ebooks/9528 | 「twin flame」を用いた最初期の小説（全文公開）
 source: Soul Mates and Twin Flames（Summit Lighthouse） | https://summitlighthouse.org/soulmates-and-twin-flames/ | 概念を広めたエリザベス・クレア・プロフェット側の説明
@@ -18,7 +18,7 @@ image_source: https://commons.wikimedia.org/wiki/File:Portrait_of_Marie_Corelli.
 
 <p class="lead2">この項目では、この関係が本当かどうかは書きません。<b>この言葉がどこから来て、どう日本語に入ってきたか</b>を書きます。そして最後に、<b>まだ分かっていないこと</b>を正直に書きます。</p>
 
-<h2>この言葉はどこから来たか</h2>
+<h2>どこから来たのか</h2>
 
 <h3>1886年の小説</h3>
 
@@ -81,7 +81,7 @@ image_source: https://commons.wikimedia.org/wiki/File:Portrait_of_Marie_Corelli.
 もし出所をご存じの方（何年のどの本か、誰の翻訳か）がいらっしゃれば、教えていただけると助かります。
 </div>
 
-<h2>近いことを言っている別の言葉</h2>
+<h2>近いことを言っているもの</h2>
 
 <p>「決まった相手がいて、出会うべくして出会う」という考え方は、日本語にもとからあります。</p>
 
