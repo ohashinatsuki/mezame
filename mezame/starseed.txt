@@ -9,9 +9,9 @@ source: Star people (New Age)（英語版ウィキペディア） | https://en.w
 source: Brad Steiger（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Brad_Steiger | 提唱者の来歴
 source: インディゴチルドレン（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%82%A4%E3%83%B3%E3%83%87%E3%82%A3%E3%82%B4%E3%83%81%E3%83%AB%E3%83%89%E3%83%AC%E3%83%B3 | 近い考え方の来歴（1970年代タピー、1998年）と、医学の側からの懸念
 source: Belongingness（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Belongingness | 「所属の欲求」（バウマイスターとリアリー）、マズロー
+image_source: https://commons.wikimedia.org/wiki/File:Van_Gogh,_drawing_Starry_Night_over_the_Rohne.jpg
 image: starseed.jpg
 image_credit: フィンセント・ファン・ゴッホ「ローヌ川の星月夜」（1888年） ／ Vincent van Gogh ／ Public domain ／ ウィキメディア・コモンズ
-image_source: https://commons.wikimedia.org/wiki/File:Van_Gogh,_drawing_Starry_Night_over_the_Rohne.jpg
 ---
 <p>ここが自分の居場所だと、どうしても思えない。家族のなかでも、自分だけ違う気がする。子どものころ、ひとりで窓から星空を見上げていた。人より敏感で、なぜか「何かをしなければ」という感じがずっとある。</p>
 
@@ -118,5 +118,5 @@ image_source: https://commons.wikimedia.org/wiki/File:Van_Gogh,_drawing_Starry_N
 </ul>
 
 <div class="note">
-ロペスは2つ目のしるしとして「体から出てしまいたいと感じるほど、この形が強すぎることがある」と語っています。もし、消えてしまいたい、いなくなりたい、という考えが続いているなら、それは「スターシードだから」ではなく、いま助けが要る状態です。「いのちの電話」（0570-783-556）や「よりそいホットライン」（0120-279-338）は、24時間つながります。それから、お子さんについて「この子は特別だから」と思うときは、インディゴチルドレンの項に書いたとおり、診断や支援を受ける機会を先送りしないでください。両方、あとからでもこの分野には戻れます。
+ロペスは2つ目のしるしとして「体から出てしまいたいと感じるほど、この形が強すぎることがある」と語っています。もし、消えてしまいたい、いなくなりたい、という考えが続いているなら、それは「スターシードだから」ではなく、いま助けが要る状態です。「よりそいホットライン」（0120-279-338）は24時間、「いのちの電話」（0570-783-556）は毎日10時から22時まで、電話でつながります。それから、お子さんについて「この子は特別だから」と思うときは、インディゴチルドレンの項に書いたとおり、診断や支援を受ける機会を先送りしないでください。両方、あとからでもこの分野には戻れます。
 </div>
