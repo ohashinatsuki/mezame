@@ -43,6 +43,7 @@ NEWS_PATH = os.path.join(ROOT, "news.json")
 SITE = "https://ohashinatsuki.github.io/occult-taizen"
 
 REQUIRED = ["slug", "title", "yomi", "country", "region", "category", "summary"]
+FEATURES = []
 
 GYO = [
     ("あ", "あいうえおぁぃぅぇぉ"),
@@ -113,6 +114,48 @@ def load_entries():
     return entries
 
 
+def load_features():
+    """features/*.txt から特集記事を読む。項目ファイルとほぼ同じ書式。
+    order（表示順の数字）が必須。"""
+    NL = chr(10)
+    SEP = NL + "---" + NL
+    d = os.path.join(ROOT, "features")
+    out = []
+    names = sorted(os.listdir(d)) if os.path.isdir(d) else []
+    for fn in names:
+        if not fn.endswith(".txt"):
+            continue
+        raw = io.open(os.path.join(d, fn), encoding="utf-8").read()
+        if SEP not in raw:
+            sys.exit("本文の区切り --- がありません: features/%s" % fn)
+        head, body = raw.split(SEP, 1)
+        e = {"sources": []}
+        for line in head.strip().split(NL):
+            if not line.strip() or line.strip().startswith("#"):
+                continue
+            k, v = line.split(":", 1)
+            k, v = k.strip(), v.strip()
+            if k == "source":
+                parts = [x.strip() for x in v.split("|")]
+                e["sources"].append(parts[:3] + [""] * (3 - len(parts)))
+            else:
+                e[k] = v
+        e["body"] = body.strip()
+        for k in ("slug", "title", "summary", "order"):
+            if not e.get(k):
+                sys.exit("%s が足りません: features/%s" % (k, fn))
+        if e.get("image") and not e.get("image_credit"):
+            sys.exit("image_credit が足りません: features/%s" % fn)
+        e["order"] = int(e["order"])
+        out.append(e)
+    out.sort(key=lambda x: x["order"])
+    slugs = [x["slug"] for x in out]
+    dup = {x for x in slugs if slugs.count(x) > 1}
+    if dup:
+        sys.exit("特集の slug が重複しています: %s" % dup)
+    return out
+
+
 def load_news():
     try:
         d = json.load(io.open(NEWS_PATH, encoding="utf-8"))
@@ -165,6 +208,7 @@ HEAD = """<!DOCTYPE html>
   <div class="wrap">
     <a href="index.html"{c_top}>トップ</a>
     <a href="news.html"{c_news}>最新ニュース</a>
+    <a href="tokushu.html"{c_tokushu}>特集</a>
     <a href="bunya.html"{c_bunya}>分野別</a>
     <a href="kuni.html"{c_kuni}>国別</a>
     <a href="aiueo.html"{c_aiueo}>五十音索引</a>
@@ -179,6 +223,7 @@ FOOT = """
   <div class="fnav">
     <a href="index.html">トップ</a>
     <a href="news.html">最新ニュース</a>
+    <a href="tokushu.html">特集</a>
     <a href="bunya.html">分野別索引</a>
     <a href="kuni.html">国別索引</a>
     <a href="aiueo.html">五十音索引</a>
@@ -194,7 +239,7 @@ FOOT = """
 </html>
 """
 
-NAVKEYS = ["top", "news", "aiueo", "kuni", "bunya", "about"]
+NAVKEYS = ["top", "news", "tokushu", "aiueo", "kuni", "bunya", "about"]
 
 
 def page(title, desc, canon, body, current="", ogtype="article", ogimage=""):
@@ -202,8 +247,9 @@ def page(title, desc, canon, body, current="", ogtype="article", ogimage=""):
     og = ('<meta property="og:image" content="%s">\n' % ogimage) if ogimage else ""
     h = HEAD.format(title=esc(title), desc=esc(desc), canon=canon, ogtitle=esc(title),
                     ogtype=ogtype, ogimage=og,
-                    c_top=cur["top"], c_news=cur["news"], c_aiueo=cur["aiueo"],
-                    c_kuni=cur["kuni"], c_bunya=cur["bunya"], c_about=cur["about"])
+                    c_top=cur["top"], c_news=cur["news"], c_tokushu=cur["tokushu"],
+                    c_aiueo=cur["aiueo"], c_kuni=cur["kuni"], c_bunya=cur["bunya"],
+                    c_about=cur["about"])
     return h + body + FOOT
 
 
@@ -316,6 +362,14 @@ def build_news(items):
 
 def build_top(entries, news):
     latest = ""
+    toku = ""
+    if FEATURES:
+        toku = """
+  <section class="tokuband">
+    <div class="nbhead"><h2>特集</h2><a href="tokushu.html">すべて見る &#8594;</a></div>
+    <div class="grid">{cards}</div>
+  </section>
+""".format(cards="".join(fcard(f) for f in FEATURES[:3]))
     if news:
         latest = """
   <section class="newsband">
@@ -331,12 +385,14 @@ def build_top(entries, news):
     現在 <b>{n}項目</b>、20か国・13分野。<a href="bunya.html">分野</a>・<a href="kuni.html">国</a>・<a href="aiueo.html">五十音</a>から引けます。</p>
   </section>
   {latest}
+  {toku}
   <section>
     <h2 class="sechead">事典</h2>
     <div class="grid">{cards}</div>
   </section>
 </main>
-""".format(n=len(entries), latest=latest, cards="".join(card(e) for e in entries))
+""".format(n=len(entries), latest=latest, toku=toku,
+           cards="".join(card(e) for e in entries))
     write("index.html",
           page("世界オカルト大全 — 世界の怪異と未確認現象の事典",
                "世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典。%d項目を五十音・国別・分野別から引けます。オカルト最新ニュースも週1で更新。" % len(entries),
@@ -398,14 +454,74 @@ def build_group(entries, key, order, fname, h1, desc, current):
                       body, current=current, ogtype="website"))
 
 
+def build_feature(f, entries):
+    img = ""
+    if f.get("image"):
+        cap = esc(f["image_credit"])
+        if f.get("image_source"):
+            cap += ('　<a href="%s" target="_blank" rel="noopener">元ページ</a>'
+                    % esc(f["image_source"]))
+        img = ('<figure class="hero"><img src="images/%s" alt="%s">'
+               '<figcaption>%s</figcaption></figure>'
+               % (esc(f["image"]), esc(f["title"]), cap))
+    body = """
+<main class="wrap">
+<article class="entry">
+  <p class="crumb"><a href="tokushu.html">特集</a></p>
+  <h1>{title}</h1>
+  <p class="lead">{summary}</p>
+  {img}
+  {content}
+  {src}
+</article>
+</main>
+""".format(title=esc(f["title"]), summary=esc(f["summary"]), img=img,
+           content=f["body"], src=srclist(f["sources"]))
+    ogimg = "%s/images/%s" % (SITE, f["image"]) if f.get("image") else ""
+    write("%s.html" % f["slug"],
+          page("%s — 世界オカルト大全" % f["title"], f["summary"],
+               "%s/%s.html" % (SITE, f["slug"]), body, current="tokushu", ogimage=ogimg))
+
+
+def fcard(f):
+    if f.get("image"):
+        thumb = '<img src="images/%s" alt="%s" loading="lazy">' % (esc(f["image"]), esc(f["title"]))
+    else:
+        thumb = '<span class="noimg">%s</span>' % esc(f["title"])
+    return ('<a class="card" href="{slug}.html"><span class="thumb">{thumb}</span>'
+            '<span class="cbody"><span class="ctag toku">特集</span>'
+            '<span class="ctitle">{title}</span>'
+            '<span class="csum">{summary}</span></span></a>').format(
+        slug=esc(f["slug"]), thumb=thumb, title=esc(f["title"]), summary=esc(f["summary"]))
+
+
+def build_tokushu(features):
+    body = """
+<main class="wrap">
+<article>
+  <h1>特集</h1>
+  <p class="lead">事典の項目を横につないで読む記事です。ばらばらに見える怪異のあいだに、
+  同じ形が何度も現れます。ここでも、確認されていることと語られていることは分けて書きます。</p>
+  <div class="grid">{cards}</div>
+</article>
+</main>
+""".format(cards="".join(fcard(f) for f in features) or "<p>準備中です。</p>")
+    write("tokushu.html",
+          page("特集 — 世界オカルト大全",
+               "世界オカルト大全の特集記事。怪異はなぜ危険な場所に現れるのか、作り物と判明しても話が残るのはなぜか、本当に説明がつかないものは何か。事典60項目を横断して読み解きます。",
+               SITE + "/tokushu.html", body, current="tokushu", ogtype="website"))
+
+
 def build_sitemap(entries):
-    urls = ["", "news.html", "aiueo.html", "kuni.html", "bunya.html",
-            "about.html", "privacy.html"] + ["%s.html" % e["slug"] for e in entries]
+    urls = (["", "news.html", "tokushu.html", "aiueo.html", "kuni.html", "bunya.html",
+             "about.html", "privacy.html"]
+            + ["%s.html" % e["slug"] for e in entries]
+            + ["%s.html" % f["slug"] for f in FEATURES])
     rows = "".join(
         "  <url><loc>%s/%s</loc><changefreq>%s</changefreq><priority>%s</priority></url>\n"
         % (SITE, u,
-           "weekly" if u in ("", "news.html", "aiueo.html", "kuni.html", "bunya.html") else "monthly",
-           "1.0" if u == "" else ("0.9" if u == "news.html" else "0.7"))
+           "weekly" if u in ("", "news.html", "tokushu.html", "aiueo.html", "kuni.html", "bunya.html") else "monthly",
+           "1.0" if u == "" else ("0.9" if u in ("news.html", "tokushu.html") else "0.7"))
         for u in urls)
     write("sitemap.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -418,6 +534,11 @@ def main():
     if not entries:
         sys.exit("content/ に項目がありません")
     news = load_news()
+    global FEATURES
+    FEATURES = load_features()
+    for f in FEATURES:
+        build_feature(f, entries)
+    build_tokushu(FEATURES)
     for e in entries:
         build_entry(e, entries)
     build_top(entries, news)
@@ -430,7 +551,8 @@ def main():
     build_sitemap(entries)
     noimg = [e["title"] for e in entries if not e.get("image")]
     nosrc = [e["title"] for e in entries if not e["sources"]]
-    print("生成完了: %d項目 / ニュース%d件 / 索引3枚" % (len(entries), len(news)))
+    print("生成完了: %d項目 / 特集%d本 / ニュース%d件 / 索引3枚"
+          % (len(entries), len(FEATURES), len(news)))
     print("画像なし: %d件" % len(noimg))
     if nosrc:
         print("[注意] 出典リンクなし: " + "、".join(nosrc))

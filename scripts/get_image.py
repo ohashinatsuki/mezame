@@ -19,7 +19,7 @@ import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMG = os.path.join(ROOT, "images")
-CONTENT = os.path.join(ROOT, "content")
+CONTENT = os.path.join(ROOT, os.environ.get("OT_DIR", "content"))
 UA = {"User-Agent": "occult-taizen/1.0 (https://github.com/ohashinatsuki/occult-taizen)"}
 
 # 商用利用できるライセンスだけを通す

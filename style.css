@@ -73,6 +73,7 @@ h1,h2,h3{font-family:var(--serif); font-weight:700; margin:0; text-wrap:balance;
 }
 .cbody{display:flex; flex-direction:column; gap:5px; padding:13px 14px 15px}
 .ctag{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--gold)}
+.ctag.toku{color:var(--accent); font-weight:700}
 .ctitle{font-family:var(--serif); font-size:17.5px; font-weight:700; line-height:1.45; letter-spacing:.02em}
 .card:hover .ctitle{color:var(--accent)}
 .csum{font-size:12.5px; color:var(--ink2); line-height:1.75}
@@ -153,6 +154,7 @@ footer b{color:var(--ink2)}
   padding-bottom:10px; border-bottom:1px solid var(--rule)}
 .nbhead h2{font-size:19px; letter-spacing:.06em; margin:0}
 .nbhead a{font-size:13px; white-space:nowrap}
+.tokuband{margin-top:34px}
 .sechead{font-size:19px; letter-spacing:.06em; margin:34px 0 0; padding-bottom:8px;
   border-bottom:1px solid var(--rule2)}
 .newsitem{padding:16px 0; border-bottom:1px solid var(--rule)}
