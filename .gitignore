@@ -5,3 +5,4 @@ __pycache__/
 .openai_key
 *.polished.txt
 *.rejected.txt
+research/
