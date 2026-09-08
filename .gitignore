@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 つづきはここから.md
 言葉のルール.md
+.openai_key
+*.polished.txt
+*.rejected.txt
