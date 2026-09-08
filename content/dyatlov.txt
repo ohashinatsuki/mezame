@@ -8,6 +8,9 @@ category: 消失事件
 summary: 1959年、ソ連ウラル山脈で登山者9人が全員死亡した事件。内側から切り裂かれたテント、軽装での逃走、一部の遺体の重傷。60年後に新たな説が提示された。
 source: Communications Earth & Environment「ディアトロフ峠事件における板状雪崩の発生と衝撃の機構」 | https://www.nature.com/articles/s43247-020-00081-8 | 2021年の査読付き論文。雪崩説を力学的に検証したもの
 source: ディアトロフ峠事件（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%83%87%E3%82%A3%E3%82%A2%E3%83%88%E3%83%AD%E3%83%95%E5%B3%A0%E4%BA%8B%E4%BB%B6 | 経緯の概観
+image: dyatlov.jpg
+image_credit: Merikanto ／ CC BY-SA 4.0 ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Dyatlov_pass_incident_accurate_fancy_map_2.svg
 ---
 <p>1959年2月、ソ連ウラル山脈北部。ウラル工科大学の学生を中心とする9人の登山隊が、全員死亡した状態で発見された。</p>
 

@@ -7,6 +7,9 @@ region: 日本
 category: UMA・未確認生物
 summary: 胴が異常に太い日本の蛇状生物。自治体が高額の懸賞金をかけ、捜索イベントが行われてきた、日本でもっとも「行政が本気になった」未確認生物。
 source: ツチノコ（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%83%84%E3%83%81%E3%83%8E%E3%82%B3 | 伝承史と懸賞金の経緯
+image: tsuchinoko.jpg
+image_credit: Ide Dōtei (井出道貞, Japanese, *1756, †1839) ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Doeti_Nozuchi.jpg
 ---
 <p>ビール瓶のように胴が膨らんだ蛇。全長は30〜80センチほど。跳ねる、いびきをかく、酒を好む——日本各地に伝わる未確認生物である。</p>
 

@@ -245,9 +245,13 @@ def build_entry(e, entries):
            % "".join(card(x) for x in same)) if same else ""
     img = ""
     if e.get("image"):
+        cap = esc(e["image_credit"])
+        if e.get("image_source"):
+            cap += ('　<a href="%s" target="_blank" rel="noopener">元ページ</a>'
+                    % esc(e["image_source"]))
         img = ('<figure class="hero"><img src="images/%s" alt="%s">'
                '<figcaption>%s</figcaption></figure>'
-               % (esc(e["image"]), esc(e["title"]), esc(e["image_credit"])))
+               % (esc(e["image"]), esc(e["title"]), cap))
     alias = ('<p class="alias">別名: %s</p>' % esc(e["aliases"])) if e.get("aliases") else ""
     body = """
 <main class="wrap">

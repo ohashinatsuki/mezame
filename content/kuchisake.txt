@@ -7,6 +7,9 @@ region: 日本
 category: 都市伝説
 summary: 1979年、日本全国の小学生のあいだに数か月で広まった怪異。集団下校や警察の巡回にまで発展した、日本の都市伝説の原型。
 source: 口裂け女（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E5%8F%A3%E8%A3%82%E3%81%91%E5%A5%B3 | 1979年の流行と研究史
+image: kuchisake.jpg
+image_credit: ashoppio ／ CC BY-SA 4.0 ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Diagramma_della_Conversazione_della_Kuchisake-Onna.svg
 ---
 <p>マスクをした背の高い女が近づいてきて、「私、きれい？」と尋ねる。きれいだと答えるとマスクを外す。口が耳まで裂けている。「これでも？」</p>
 

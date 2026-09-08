@@ -8,6 +8,10 @@ category: UMA・未確認生物
 summary: 1966年から67年にかけて米国ウェストバージニア州で目撃された、赤く光る目を持つ有翼の人型。橋の崩落事故と結びつけて語られるようになった。
 source: モスマン（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%83%A2%E3%82%B9%E3%83%9E%E3%83%B3 | 目撃と橋の事故の経緯
 source: シルバーブリッジ（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%AB%E3%83%90%E3%83%BC%E6%A9%8B | 崩落事故について
+image_source: https://commons.wikimedia.org/wiki/File:Mothman.svg
+image: mothman.jpg
+image_credit: Csassen13 ／ CC0 ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Mothman_Statue.jpg
 ---
 <p>1966年11月、ウェストバージニア州ポイントプレザント。若者たちが車で走行中、背の高い人型の何かに遭遇したと証言した。灰色で、翼があり、目が赤く光っていたという。</p>
 

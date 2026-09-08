@@ -8,6 +8,9 @@ category: 古代の謎
 summary: 誰も読めない文字で書かれた15世紀の写本。実在しない植物、裸の女性たち、天体図が240ページにわたって描かれている。100年以上、解読されていない。
 source: イェール大学バイネッキ図書館「Voynich Manuscript」 | https://beinecke.library.yale.edu/collections/highlights/voynich-manuscript | 所蔵館による解説
 source: 全ページのデジタル画像（イェール大学） | https://collections.library.yale.edu/catalog/2002046 | 無償で閲覧・ダウンロードできる
+image: voynich.jpg
+image_credit: Unknown authorUnknown author ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Voynich_Manuscript_(135).jpg
 ---
 <p>アメリカ、<a href="https://beinecke.library.yale.edu/collections/highlights/voynich-manuscript" target="_blank" rel="noopener">イェール大学バイネッキ稀覯本図書館</a>の所蔵番号 MS 408。約240ページの羊皮紙の本で、全編が<b>どの既知の言語とも一致しない文字</b>で書かれている。</p>
 

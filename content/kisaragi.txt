@@ -7,6 +7,10 @@ region: 日本
 category: 都市伝説
 summary: 2004年、匿名掲示板に「存在しない駅に着いた」と実況が書き込まれた。ネット時代に生まれた異界譚の代表例で、いまも書き込みは残っている。
 source: きさらぎ駅（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%81%8D%E3%81%95%E3%82%89%E3%81%8E%E9%A7%85 | 経緯とその後の展開
+image_source: https://commons.wikimedia.org/wiki/File:Japan_-_A_Lecture.djvu
+image: kisaragi.jpg
+image_credit: まも(Mamo) ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Enshu_Railway_Line_1501.JPG
 ---
 <p>2004年1月8日深夜、匿名掲示板の「不思議体験」を扱うスレッドに、ひとりの利用者が書き込みを始めた。</p>
 

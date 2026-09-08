@@ -8,6 +8,9 @@ category: UFO・UAP
 summary: 1947年、米軍が「空飛ぶ円盤を回収した」と発表し、翌日に撤回した事件。UFO史上もっとも有名な出来事であり、政府の公式説明は30年以上を経て二度変更された。
 source: 米国立公文書館「Project BLUE BOOK — 未確認飛行物体」 | https://www.archives.gov/research/military/air-force/ufos | 米軍のUFO調査記録の所蔵案内
 source: ロズウェル事件（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%83%AD%E3%82%BA%E3%82%A6%E3%82%A7%E3%83%AB%E4%BA%8B%E4%BB%B6 | 経緯の概観
+image: roswell.jpg
+image_credit: Roswell Daily Record. ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Roswell_Daily_Record._July_8,_1947._RAAF_Captures_Flying_Saucer_On_Ranch_in_Roswell_Region._Full_front_page.jpg
 ---
 <p>1947年7月8日、ニューメキシコ州ロズウェル陸軍飛行場が異例の報道発表を行った。近郊の牧場で<b>「空飛ぶ円盤を回収した」</b>という内容だった。地元紙は一面で報じた。</p>
 

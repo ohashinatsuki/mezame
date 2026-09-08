@@ -8,6 +8,10 @@ category: UMA・未確認生物
 summary: スコットランドのネス湖に棲むとされる巨大生物。1934年の一枚の写真が世界的な知名度を決定づけたが、その写真は60年後に作り物だと告白された。
 source: PBS NewsHour「新しい道具で古い怪物を探す」 | https://www.pbs.org/newshour/world/loch-ness-monster-search-party-uses-new-tools-to-look-for-an-old-cryptid | 2023年の大規模捜索を報じたもの
 source: ネッシー（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%83%8D%E3%83%83%E3%82%B7%E3%83%BC | 経緯の概観
+image_source: https://commons.wikimedia.org/wiki/File:EdmondstonThomas1868TheYoungShetlander.djvu
+image: nessie.jpg
+image_credit: M. A. Wetherell ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Loch_Ness_Monster_Surgeon%27s_photograph.jpg
 ---
 <p>スコットランド北部、細長く深いネス湖。ここに首の長い巨大な生き物がいるという話は、いまや世界でもっとも有名な未確認生物の伝説になっている。</p>
 

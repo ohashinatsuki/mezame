@@ -8,6 +8,9 @@ category: 失われた文明
 summary: 一夜にして海に沈んだとされる古代の大国。出典はプラトンの対話篇2編のみで、それ以前にこの島に言及した文献は存在しない。
 source: プラトン『ティマイオス』（Perseus Digital Library） | https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0180 | 原典。アトランティスの唯一の出典
 source: アトランティス（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%88%E3%83%A9%E3%83%B3%E3%83%86%E3%82%A3%E3%82%B9 | 受容史の概観
+image: atlantis.jpg
+image_credit: Athanasius Kircher ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Atlantis_Kircher_Mundus_subterraneus_1678.jpg
 ---
 <p>強大な海洋帝国が、地震と洪水によって一日と一夜で海中に没した——この物語には、ただ一つの出典しかない。</p>
 

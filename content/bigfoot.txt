@@ -7,6 +7,9 @@ region: 北アメリカ
 category: UMA・未確認生物
 summary: 北米の森林地帯で目撃される、二足歩行の大型類人猿とされる存在。1967年に撮影された動画が最大の根拠であり、同時に最大の争点でもある。
 source: ビッグフット（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%83%93%E3%83%83%E3%82%B0%E3%83%95%E3%83%83%E3%83%88 | 目撃史と検証の概観
+image: bigfoot.jpg
+image_credit: Roger Patterson and Robert Gimlin ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Patterson_Gimlin_Bigfoot.jpg
 ---
 <p>北米大陸の針葉樹林に、身長2メートルを超える毛むくじゃらの二足歩行生物がいる——ビッグフットの伝説は、北米でもっとも根強い未確認生物譚である。</p>
 

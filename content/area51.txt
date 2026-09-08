@@ -8,6 +8,9 @@ category: UFO・UAP
 summary: ネバダ州の砂漠にある米空軍の秘密施設。存在自体が長く否定されていたが、2013年に機密解除文書で公式に認められた。UFO伝説の中心地。
 source: CIA電子閲覧室（FOIA Reading Room） | https://www.cia.gov/readingroom/collection/u-2-program-history | U-2計画に関する機密解除文書。エリア51の存在が記載されている
 source: 米国立公文書館「Project BLUE BOOK」 | https://www.archives.gov/research/military/air-force/ufos | 米軍のUFO調査記録
+image: area51.jpg
+image_credit: NASA ／ Public domain ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:Wfm_area_51_landsat_geocover_2000.jpg
 ---
 <p>ラスベガスから北西へ約130キロ。乾いた塩湖のほとりに、地図に載らない飛行場がある。周囲は立ち入り禁止で、無断侵入者には致死的な武力の使用が警告されている。</p>
 

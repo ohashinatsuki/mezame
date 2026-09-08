@@ -8,6 +8,9 @@ category: 古代の謎
 summary: ペルー南部の乾燥地帯に描かれた巨大な図形群。1,000点以上が確認されており、近年はAI解析によって新たな絵が次々と見つかっている。
 source: NBC News「ナスカで100点の新たな地上絵」 | https://www.nbcnews.com/news/world/researchers-discover-100-new-ancient-designs-perus-nazca-lines-rcna62533 | 山形大学チームによるAI解析の報道
 source: ナスカの地上絵（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E3%83%8A%E3%82%B9%E3%82%AB%E3%81%AE%E5%9C%B0%E4%B8%8A%E7%B5%B5 | 研究史の概観
+image: nazca.jpg
+image_credit: PsamatheM ／ CC BY-SA 4.0 ／ ウィキメディア・コモンズ
+image_source: https://commons.wikimedia.org/wiki/File:04-Nazca_Lines-nX-20.jpg
 ---
 <p>ペルー南部、太平洋岸の乾いた台地に、上空からでなければ全体を把握できない巨大な線と図形が刻まれている。ハチドリ、サル、クモ、シャチ、そして数キロにおよぶ直線。</p>
 
