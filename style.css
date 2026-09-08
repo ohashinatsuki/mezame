@@ -1,75 +1,81 @@
 :root{
-  --bg:#0E0F13; --bg2:#15171D; --card:#191C23; --card2:#1F232B;
-  --ink:#E9E6DE; --ink2:#B4AFA3; --muted:#7E7A70;
-  --rule:#282C35; --rule2:#3A3F4A;
-  --gold:#C9A227; --gold2:#E3C35A; --blood:#9E3B32;
+  --bg:#F6F2E8; --bg2:#EFE9DB; --card:#FFFFFF; --card2:#F0EADC;
+  --ink:#1E1A14; --ink2:#4A4237; --muted:#867C6C;
+  --rule:#DFD6C2; --rule2:#C6BAA1;
+  --accent:#8C2F27; --accent2:#6E241E; --gold:#8A6C22; --deep:#2F4F43;
   --serif:"Shippori Mincho",'Hiragino Mincho ProN','Yu Mincho',serif;
   --sans:"Noto Sans JP",'Hiragino Sans','Yu Gothic',system-ui,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
-html{color-scheme:dark}
+html{color-scheme:light}
 body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:var(--sans); font-size:15px; line-height:1.85;
+  margin:0; color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.9;
   -webkit-font-smoothing:antialiased;
+  background:var(--bg);
+  background-image:
+    radial-gradient(1200px 400px at 50% -50px, #FFFDF7 0%, transparent 70%),
+    repeating-linear-gradient(0deg, #00000005 0 1px, transparent 1px 3px);
 }
 .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
-a{color:var(--gold2); text-decoration:none}
-a:hover{text-decoration:underline; text-underline-offset:3px}
-a:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+a{color:var(--accent); text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:1px; text-decoration-color:#C99A94}
+a:hover{color:var(--accent2); text-decoration-color:currentColor}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 img{max-width:100%; display:block}
-h1,h2,h3{font-family:var(--serif); font-weight:700; margin:0; text-wrap:balance}
+h1,h2,h3{font-family:var(--serif); font-weight:700; margin:0; text-wrap:balance; color:var(--ink)}
 
 /* ヘッダー */
-.masthead{background:linear-gradient(180deg,#0B0C10,#14161C); border-bottom:1px solid var(--rule)}
-.masthead .wrap{padding:20px 20px 16px}
-.brand{display:inline-block; color:var(--ink)}
-.brand:hover{text-decoration:none}
+.masthead{background:linear-gradient(180deg,#FFFDF6,#F3EDE0); border-bottom:2px solid var(--ink)}
+.masthead .wrap{padding:20px 20px 15px}
+.brand{display:inline-block; color:var(--ink); text-decoration:none}
+.brand:hover{color:var(--ink); text-decoration:none}
 .b1{display:block; font-family:var(--serif); font-size:27px; font-weight:800; letter-spacing:.16em}
 .b2{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.3em; color:var(--gold); margin-top:5px}
 
 /* ナビ */
-.mainnav{background:var(--bg2); border-bottom:1px solid var(--rule); position:sticky; top:0; z-index:20}
+.mainnav{background:var(--card); border-bottom:1px solid var(--rule); position:sticky; top:0; z-index:20}
 .mainnav .wrap{display:flex; flex-wrap:wrap; gap:0 4px; padding:0 14px}
 .mainnav a{
   display:inline-flex; align-items:center; min-height:50px; padding:0 14px;
-  font-size:15px; font-weight:500; color:var(--ink2);
+  font-size:15px; font-weight:500; color:var(--ink2); text-decoration:none;
   border-bottom:3px solid transparent; letter-spacing:.04em;
 }
-.mainnav a:hover{color:var(--gold2); background:#1D2029; text-decoration:none}
-.mainnav a[aria-current="page"]{color:var(--gold2); font-weight:700; border-bottom-color:var(--gold)}
+.mainnav a:hover{color:var(--accent); background:var(--bg2); text-decoration:none}
+.mainnav a[aria-current="page"]{color:var(--accent); font-weight:700; border-bottom-color:var(--accent)}
 @media (max-width:520px){ .mainnav a{font-size:13.5px; padding:0 10px; min-height:46px} }
 
 /* トップの導入 */
-.hero-copy{padding:34px 0 8px; border-bottom:1px solid var(--rule)}
+.hero-copy{padding:34px 0 10px; border-bottom:1px solid var(--rule)}
 .hero-copy h1{font-size:clamp(26px,5vw,38px); letter-spacing:.08em; line-height:1.3}
 .hero-copy p{color:var(--ink2); margin:12px 0 22px; max-width:62ch}
 
-/* カード一覧（画像の下に文字） */
+/* カード一覧 */
 .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:20px; padding:26px 0}
 .grid.small{grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; padding:14px 0}
 .card{
   display:flex; flex-direction:column; background:var(--card);
-  border:1px solid var(--rule); border-radius:3px; overflow:hidden; color:var(--ink);
-  transition:border-color .15s, transform .15s;
+  border:1px solid var(--rule); border-radius:3px; overflow:hidden;
+  color:var(--ink); text-decoration:none;
+  box-shadow:0 1px 2px #0000000a;
+  transition:border-color .15s, transform .15s, box-shadow .15s;
 }
-.card:hover{border-color:var(--gold); text-decoration:none; transform:translateY(-2px)}
+.card:hover{border-color:var(--accent); text-decoration:none; transform:translateY(-2px); box-shadow:0 6px 16px #0000001a}
 .thumb{display:block; aspect-ratio:16/10; background:var(--card2); overflow:hidden; position:relative}
 .thumb img{width:100%; height:100%; object-fit:cover}
 .noimg{
   position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  font-family:var(--serif); font-size:19px; font-weight:700; color:var(--gold);
-  letter-spacing:.1em; text-align:center; padding:14px; line-height:1.5;
+  font-family:var(--serif); font-size:19px; font-weight:700; color:var(--deep);
+  letter-spacing:.1em; text-align:center; padding:14px; line-height:1.55;
   background:
-    radial-gradient(120% 90% at 50% 0%, #23262F 0%, #14161B 70%),
-    repeating-linear-gradient(45deg, #ffffff05 0 2px, transparent 2px 8px);
+    radial-gradient(120% 90% at 50% 0%, #FBF7EC 0%, #EDE5D4 75%),
+    repeating-linear-gradient(45deg, #00000008 0 1px, transparent 1px 9px);
+  border-bottom:1px solid var(--rule);
 }
 .cbody{display:flex; flex-direction:column; gap:5px; padding:13px 14px 15px}
-.ctag{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--gold); text-transform:uppercase}
+.ctag{font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--gold)}
 .ctitle{font-family:var(--serif); font-size:17.5px; font-weight:700; line-height:1.45; letter-spacing:.02em}
-.card:hover .ctitle{color:var(--gold2)}
-.csum{font-size:12.5px; color:var(--ink2); line-height:1.7}
+.card:hover .ctitle{color:var(--accent)}
+.csum{font-size:12.5px; color:var(--ink2); line-height:1.75}
 .cmeta{font-family:var(--mono); font-size:10.5px; color:var(--muted); margin-top:2px}
 .grid.small .ctitle{font-size:15.5px}
 .grid.small .csum{display:none}
@@ -80,21 +86,33 @@ article{padding:30px 0 10px}
 .crumb{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.1em; margin:0 0 10px}
 article h1{font-size:clamp(26px,5.4vw,40px); line-height:1.32; letter-spacing:.05em}
 .alias{font-size:13px; color:var(--muted); margin:10px 0 0}
-.lead{font-family:var(--serif); font-size:17px; color:var(--ink2); margin:16px 0 0; line-height:1.9}
+.lead{font-family:var(--serif); font-size:17px; color:var(--ink2); margin:16px 0 0; line-height:1.95}
 figure.hero{margin:24px 0 8px}
 figure.hero img{width:100%; border:1px solid var(--rule); border-radius:3px}
 figcaption{font-size:11.5px; color:var(--muted); margin-top:8px; line-height:1.7}
 article h2{font-size:20px; letter-spacing:.05em; margin:38px 0 6px; padding-bottom:8px; border-bottom:1px solid var(--rule2)}
-article h3{font-size:16px; letter-spacing:.04em; margin:26px 0 2px; color:var(--gold2)}
+article h3{font-size:16px; letter-spacing:.04em; margin:26px 0 2px; color:var(--accent2)}
 article p{margin:12px 0; color:var(--ink2)}
 article ul,article ol{margin:12px 0; padding-left:1.3em; color:var(--ink2)}
 article li{margin:6px 0}
 article b,article strong{color:var(--ink); font-weight:700}
-.note{background:var(--card); border-left:3px solid var(--gold); padding:14px 18px; margin:20px 0; font-size:13.5px; color:var(--ink2)}
-.fact{background:#12181A; border-left:3px solid #4E8C7A; padding:14px 18px; margin:20px 0; font-size:13.5px; color:var(--ink2)}
+.note{background:#FBF3DE; border-left:3px solid var(--gold); padding:14px 18px; margin:22px 0; font-size:13.5px; color:var(--ink2); border-radius:0 3px 3px 0}
+.fact{background:#EAF2EC; border-left:3px solid var(--deep); padding:14px 18px; margin:22px 0; font-size:13.5px; color:var(--ink2); border-radius:0 3px 3px 0}
 .fact b,.note b{color:var(--ink)}
-.src{font-size:12.5px; color:var(--muted)}
-.src a{color:var(--ink2)}
+
+/* 出典 */
+ul.srclist{list-style:none; padding:0; margin:14px 0}
+ul.srclist li{
+  margin:0; padding:11px 0 11px 26px; border-bottom:1px solid var(--rule);
+  font-size:13.5px; line-height:1.75; position:relative;
+}
+ul.srclist li::before{
+  content:"›"; position:absolute; left:6px; top:9px;
+  font-family:var(--serif); font-size:16px; color:var(--gold);
+}
+ul.srclist li:last-child{border-bottom:0}
+ul.srclist .note-s{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+.ref{font-size:.86em; vertical-align:super; line-height:0; margin-left:1px; text-decoration:none}
 
 /* 索引 */
 .gyonav{display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 6px}
@@ -102,26 +120,47 @@ article b,article strong{color:var(--ink); font-weight:700}
   display:inline-flex; align-items:center; gap:6px; min-height:42px; padding:0 15px;
   background:var(--card); border:1px solid var(--rule); border-radius:3px;
   font-family:var(--serif); font-size:16px; font-weight:700; color:var(--ink);
+  text-decoration:none;
 }
-.gyonav a:hover{border-color:var(--gold); color:var(--gold2); text-decoration:none}
+.gyonav a:hover{border-color:var(--accent); color:var(--accent); text-decoration:none}
 .gyonav.wide a{font-family:var(--sans); font-size:13.5px; font-weight:500}
 .gyonav a span{font-family:var(--mono); font-size:10.5px; color:var(--muted)}
 .gyo{margin-top:30px; scroll-margin-top:64px}
 .gyo h2{display:flex; align-items:baseline; gap:12px}
 .cnt{font-family:var(--mono); font-size:11.5px; color:var(--muted); font-weight:400}
-ul.dict{list-style:none; margin:10px 0; padding:0;
-  columns:2; column-gap:32px}
+ul.dict{list-style:none; margin:10px 0; padding:0; columns:2; column-gap:32px}
 ul.dict li{break-inside:avoid; display:flex; align-items:baseline; gap:8px;
   padding:8px 0; border-bottom:1px solid var(--rule); margin:0}
-ul.dict li a{font-family:var(--serif); font-size:16px; font-weight:500}
+ul.dict li a{font-family:var(--serif); font-size:16px; font-weight:500; text-decoration:none; color:var(--ink)}
+ul.dict li a:hover{color:var(--accent); text-decoration:underline}
 ul.dict .y{font-size:11px; color:var(--muted)}
 ul.dict .k{margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--muted); white-space:nowrap}
 @media (max-width:640px){ ul.dict{columns:1} }
 
 /* フッター */
-footer{margin-top:44px; padding:26px 0 52px; border-top:1px solid var(--rule);
+footer{margin-top:44px; padding:26px 0 52px; border-top:2px solid var(--ink);
   font-size:12.5px; color:var(--muted); line-height:1.9}
 footer .fnav{display:flex; flex-wrap:wrap; gap:4px 18px; margin-bottom:10px}
-footer .fnav a{display:inline-block; padding:6px 0; font-size:13.5px; color:var(--ink2)}
+footer .fnav a{display:inline-block; padding:6px 0; font-size:13.5px; color:var(--ink2); text-decoration:none}
+footer .fnav a:hover{color:var(--accent); text-decoration:underline}
 footer b{color:var(--ink2)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* 最新ニュース */
+.newsband{margin:26px 0 6px; padding:22px 24px 8px; background:var(--card);
+  border:1px solid var(--rule); border-top:3px solid var(--accent); border-radius:3px}
+.nbhead{display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+  padding-bottom:10px; border-bottom:1px solid var(--rule)}
+.nbhead h2{font-size:19px; letter-spacing:.06em; margin:0}
+.nbhead a{font-size:13px; white-space:nowrap}
+.sechead{font-size:19px; letter-spacing:.06em; margin:34px 0 0; padding-bottom:8px;
+  border-bottom:1px solid var(--rule2)}
+.newsitem{padding:16px 0; border-bottom:1px solid var(--rule)}
+.newsitem:last-child{border-bottom:0}
+.ndate{font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.1em; margin:0 0 4px}
+.newsitem h3{font-family:var(--serif); font-size:17.5px; font-weight:700; margin:0 0 6px;
+  line-height:1.5; color:var(--ink)}
+.newsitem p{margin:8px 0; font-size:14px; color:var(--ink2); line-height:1.85}
+.newsitem .srclist{margin:8px 0 0}
+.newsitem .srclist li{padding:5px 0 5px 22px; border:0; font-size:12.5px}
+.newsitem .srclist li::before{top:3px; font-size:14px}

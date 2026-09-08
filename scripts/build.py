@@ -1,43 +1,49 @@
 # -*- coding: utf-8 -*-
 """世界オカルト大全 サイト生成スクリプト
 
-content/ に置いた項目ファイルから、
-  ・各項目のページ
-  ・トップページ（画像カード一覧）
-  ・五十音索引 / 国別索引 / 分野別索引
-  ・sitemap.xml
-をまとめて作る。項目を足したら、このスクリプトを実行し直すだけでよい。
-
     python scripts/build.py
 
-項目ファイルの書き方（content/xxx.txt）:
+作るもの:
+  ・各項目のページ            content/*.txt から
+  ・トップページ              最新ニュース + 画像カード一覧
+  ・最新ニュース              news.json から
+  ・五十音索引 / 国別索引 / 分野別索引
+  ・sitemap.xml / robots.txt
 
-    slug: nessie                    ← URLになる英字。必須。重複禁止
-    title: ネッシー                  ← 項目名。必須
-    yomi: ねっしー                   ← 五十音索引に使う読み。必須（ひらがな）
-    aliases: ネス湖の怪物            ← 別名。任意（読点区切り）
-    country: イギリス                ← 国別索引に使う。必須
-    region: ヨーロッパ               ← 地域。必須
-    category: UMA・未確認生物        ← 分野別索引に使う。必須
-    summary: 一行の紹介文。カードに出る。必須
-    image: nessie.jpg               ← images/ 内のファイル名。任意
-    image_credit: 出典と権利表示      ← 画像を使うなら必須
+項目ファイル（content/xxx.txt）の書き方:
+
+    slug: nessie                 ← URLになる英字。必須。重複禁止
+    title: ネッシー               ← 項目名。必須
+    yomi: ねっしー                ← 五十音索引に使う読み（ひらがな）。必須
+    aliases: ネス湖の怪物         ← 別名。任意
+    country: イギリス             ← 国別索引。必須
+    region: ヨーロッパ            ← 地域。必須
+    category: UMA・未確認生物     ← 分野別索引。必須
+    summary: 一行の紹介文。必須
+    image: nessie.jpg            ← images/ 内のファイル名。任意
+    image_credit: 権利表示        ← 画像を使うなら必須
+    source: ラベル | https://... | 補足   ← 出典。何行でも書ける。補足は省略可
     ---
-    <p>本文をHTMLで書く。</p>
+    <p>本文をHTMLで書く。文中の出典は <a href="..." target="_blank" rel="noopener">…</a> で。</p>
+
+ニュース（news.json）の書き方:
+    {"items":[{"date":"2026-09-08","title":"…","body":"<p>…</p>",
+               "sources":[["ラベル","https://…"]]}]}
 """
 import html
 import io
+import json
 import os
 import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, "content")
+NEWS_PATH = os.path.join(ROOT, "news.json")
 SITE = "https://ohashinatsuki.github.io/occult-taizen"
 
 REQUIRED = ["slug", "title", "yomi", "country", "region", "category", "summary"]
 
-# 五十音索引の行分け
 GYO = [
     ("あ", "あいうえおぁぃぅぇぉ"),
     ("か", "かきくけこがぎぐげご"),
@@ -67,23 +73,28 @@ def esc(s):
 
 def load_entries():
     entries = []
-    if not os.path.isdir(CONTENT):
-        return entries
-    for fn in sorted(os.listdir(CONTENT)):
+    for fn in sorted(os.listdir(CONTENT)) if os.path.isdir(CONTENT) else []:
         if not fn.endswith(".txt"):
             continue
         raw = io.open(os.path.join(CONTENT, fn), encoding="utf-8").read()
         if "\n---\n" not in raw:
             sys.exit("本文の区切り --- がありません: %s" % fn)
         head, body = raw.split("\n---\n", 1)
-        e = {"_file": fn}
+        e = {"_file": fn, "sources": []}
         for line in head.strip().split("\n"):
             if not line.strip() or line.strip().startswith("#"):
                 continue
             if ":" not in line:
                 sys.exit("front matter の書式が不正です: %s / %s" % (fn, line))
             k, v = line.split(":", 1)
-            e[k.strip()] = v.strip()
+            k, v = k.strip(), v.strip()
+            if k == "source":
+                parts = [p.strip() for p in v.split("|")]
+                if len(parts) < 2 or not parts[1].startswith("http"):
+                    sys.exit("source は「ラベル | URL | 補足」の形式で: %s / %s" % (fn, v))
+                e["sources"].append(parts[:3] + [""] * (3 - len(parts)))
+            else:
+                e[k] = v
         e["body"] = body.strip()
         for k in REQUIRED:
             if not e.get(k):
@@ -100,6 +111,20 @@ def load_entries():
     if dup:
         sys.exit("slug が重複しています: %s" % dup)
     return entries
+
+
+def load_news():
+    try:
+        d = json.load(io.open(NEWS_PATH, encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    items = d.get("items", [])
+    for it in items:
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", it.get("date", "")):
+            sys.exit("news.json の date が不正です: %s" % it.get("date"))
+        if not it.get("title") or not it.get("body"):
+            sys.exit("news.json に title か body がありません: %s" % it.get("date"))
+    return sorted(items, key=lambda x: x["date"], reverse=True)
 
 
 def gyo_of(yomi):
@@ -126,23 +151,24 @@ HEAD = """<!DOCTYPE html>
 {ogimage}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="{base}style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="{base}"><span class="b1">世界オカルト大全</span><span class="b2">WORLD OCCULT ENCYCLOPEDIA</span></a>
+    <a class="brand" href="index.html"><span class="b1">世界オカルト大全</span><span class="b2">WORLD OCCULT ENCYCLOPEDIA</span></a>
   </div>
 </header>
 
 <nav class="mainnav">
   <div class="wrap">
-    <a href="{base}"{c_top}>トップ</a>
-    <a href="{base}aiueo.html"{c_aiueo}>五十音索引</a>
-    <a href="{base}kuni.html"{c_kuni}>国別</a>
-    <a href="{base}bunya.html"{c_bunya}>分野別</a>
-    <a href="{base}about.html"{c_about}>このサイトについて</a>
+    <a href="index.html"{c_top}>トップ</a>
+    <a href="news.html"{c_news}>最新ニュース</a>
+    <a href="bunya.html"{c_bunya}>分野別</a>
+    <a href="kuni.html"{c_kuni}>国別</a>
+    <a href="aiueo.html"{c_aiueo}>五十音索引</a>
+    <a href="about.html"{c_about}>このサイトについて</a>
   </div>
 </nav>
 """
@@ -151,12 +177,13 @@ FOOT = """
 <div class="wrap">
 <footer>
   <div class="fnav">
-    <a href="{base}">トップ</a>
-    <a href="{base}aiueo.html">五十音索引</a>
-    <a href="{base}kuni.html">国別索引</a>
-    <a href="{base}bunya.html">分野別索引</a>
-    <a href="{base}about.html">このサイトについて</a>
-    <a href="{base}privacy.html">プライバシーポリシー</a>
+    <a href="index.html">トップ</a>
+    <a href="news.html">最新ニュース</a>
+    <a href="bunya.html">分野別索引</a>
+    <a href="kuni.html">国別索引</a>
+    <a href="aiueo.html">五十音索引</a>
+    <a href="about.html">このサイトについて</a>
+    <a href="privacy.html">プライバシーポリシー</a>
   </div>
   <p><b>世界オカルト大全</b> — 世界の怪異・未確認生物・古代の謎・都市伝説を集めた事典。
   確認されている事実と、語り伝えられている話を、分けて書いています。</p>
@@ -167,20 +194,20 @@ FOOT = """
 </html>
 """
 
+NAVKEYS = ["top", "news", "aiueo", "kuni", "bunya", "about"]
 
-def page(title, desc, canon, body, base="", current="", ogtype="article", ogimage=""):
-    cur = {k: (' aria-current="page"' if k == current else "")
-           for k in ["top", "aiueo", "kuni", "bunya", "about"]}
+
+def page(title, desc, canon, body, current="", ogtype="article", ogimage=""):
+    cur = {k: (' aria-current="page"' if k == current else "") for k in NAVKEYS}
     og = ('<meta property="og:image" content="%s">\n' % ogimage) if ogimage else ""
     h = HEAD.format(title=esc(title), desc=esc(desc), canon=canon, ogtitle=esc(title),
-                    ogtype=ogtype, ogimage=og, base=base,
-                    c_top=cur["top"], c_aiueo=cur["aiueo"], c_kuni=cur["kuni"],
-                    c_bunya=cur["bunya"], c_about=cur["about"])
-    return h + body + FOOT.format(base=base)
+                    ogtype=ogtype, ogimage=og,
+                    c_top=cur["top"], c_news=cur["news"], c_aiueo=cur["aiueo"],
+                    c_kuni=cur["kuni"], c_bunya=cur["bunya"], c_about=cur["about"])
+    return h + body + FOOT
 
 
 def card(e):
-    """トップページと索引で使う画像カード。画像がなければ文字だけのタイルにする。"""
     if e.get("image"):
         thumb = '<img src="images/%s" alt="%s" loading="lazy">' % (esc(e["image"]), esc(e["title"]))
     else:
@@ -188,14 +215,23 @@ def card(e):
     return (
         '<a class="card" href="{slug}.html">'
         '<span class="thumb">{thumb}</span>'
-        '<span class="cbody">'
-        '<span class="ctag">{cat}</span>'
+        '<span class="cbody"><span class="ctag">{cat}</span>'
         '<span class="ctitle">{title}</span>'
         '<span class="csum">{summary}</span>'
-        '<span class="cmeta">{country}</span>'
-        '</span></a>'
+        '<span class="cmeta">{country}</span></span></a>'
     ).format(slug=esc(e["slug"]), thumb=thumb, cat=esc(e["category"]),
              title=esc(e["title"]), summary=esc(e["summary"]), country=esc(e["country"]))
+
+
+def srclist(sources):
+    if not sources:
+        return ""
+    lis = "".join(
+        '<li><a href="{u}" target="_blank" rel="noopener">{l}</a>{n}</li>'.format(
+            u=esc(s[1]), l=esc(s[0]),
+            n=('<span class="note-s">%s</span>' % esc(s[2])) if s[2] else "")
+        for s in sources)
+    return '<h2>出典・参考</h2><ul class="srclist">%s</ul>' % lis
 
 
 def write(path, text):
@@ -203,21 +239,16 @@ def write(path, text):
 
 
 def build_entry(e, entries):
-    same = [x for x in entries
-            if x["slug"] != e["slug"] and
-            (x["category"] == e["category"] or x["country"] == e["country"])][:6]
-    rel = ""
-    if same:
-        rel = ('<h2>関連する項目</h2><div class="grid small">'
-               + "".join(card(x) for x in same) + "</div>")
+    same = [x for x in entries if x["slug"] != e["slug"]
+            and (x["category"] == e["category"] or x["country"] == e["country"])][:6]
+    rel = ('<h2>関連する項目</h2><div class="grid small">%s</div>'
+           % "".join(card(x) for x in same)) if same else ""
     img = ""
     if e.get("image"):
         img = ('<figure class="hero"><img src="images/%s" alt="%s">'
                '<figcaption>%s</figcaption></figure>'
                % (esc(e["image"]), esc(e["title"]), esc(e["image_credit"])))
-    alias = ""
-    if e.get("aliases"):
-        alias = '<p class="alias">別名: %s</p>' % esc(e["aliases"])
+    alias = ('<p class="alias">別名: %s</p>' % esc(e["aliases"])) if e.get("aliases") else ""
     body = """
 <main class="wrap">
 <article class="entry">
@@ -227,41 +258,91 @@ def build_entry(e, entries):
   <p class="lead">{summary}</p>
   {img}
   {content}
+  {src}
   {rel}
 </article>
 </main>
 """.format(cat=esc(e["category"]), country=esc(e["country"]), title=esc(e["title"]),
-           alias=alias, summary=esc(e["summary"]), img=img, content=e["body"], rel=rel)
+           alias=alias, summary=esc(e["summary"]), img=img, content=e["body"],
+           src=srclist(e["sources"]), rel=rel)
     ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
     write("%s.html" % e["slug"],
           page("%s — 世界オカルト大全" % e["title"], e["summary"],
                "%s/%s.html" % (SITE, e["slug"]), body, ogimage=ogimg))
 
 
-def build_top(entries):
-    cards = "".join(card(e) for e in entries)
+def jdate(d):
+    y, m, day = d.split("-")
+    return "%s年%s月%s日" % (y, int(m), int(day))
+
+
+def news_block(items, limit=None):
+    use = items[:limit] if limit else items
+    out = []
+    for it in use:
+        srcs = ""
+        if it.get("sources"):
+            srcs = ('<ul class="srclist">%s</ul>' % "".join(
+                '<li><a href="%s" target="_blank" rel="noopener">%s</a></li>'
+                % (esc(u), esc(l)) for l, u in it["sources"]))
+        out.append(
+            '<article class="newsitem" id="n-{d}"><p class="ndate">{jd}</p>'
+            '<h3>{t}</h3>{b}{s}</article>'.format(
+                d=esc(it["date"]), jd=jdate(it["date"]), t=esc(it["title"]),
+                b=it["body"], s=srcs))
+    return "".join(out)
+
+
+def build_news(items):
+    body = """
+<main class="wrap">
+<article class="entry">
+  <h1>オカルト最新ニュース</h1>
+  <p class="lead">世界のオカルト・未解明現象に関する出来事を、週に一度まとめています。
+  出所のはっきりした報道や発表だけを扱い、うわさ話は載せません。</p>
+  {items}
+</article>
+</main>
+""".format(items=news_block(items) or "<p>まだ記事がありません。</p>")
+    write("news.html",
+          page("オカルト最新ニュース — 世界オカルト大全",
+               "世界のオカルト・未解明現象に関する出来事を週に一度まとめています。UFO・UAPの公的発表、考古学の新発見、未確認生物の目撃報道など。",
+               SITE + "/news.html", body, current="news", ogtype="website"))
+
+
+def build_top(entries, news):
+    latest = ""
+    if news:
+        latest = """
+  <section class="newsband">
+    <div class="nbhead"><h2>オカルト最新ニュース</h2><a href="news.html">すべて見る →</a></div>
+    {items}
+  </section>
+""".format(items=news_block(news, limit=3))
     body = """
 <main class="wrap">
   <section class="hero-copy">
     <h1>世界オカルト大全</h1>
     <p>世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典です。
-    現在 <b>{n}項目</b>。<a href="aiueo.html">五十音</a>・<a href="kuni.html">国</a>・<a href="bunya.html">分野</a>から引けます。</p>
+    現在 <b>{n}項目</b>。<a href="bunya.html">分野</a>・<a href="kuni.html">国</a>・<a href="aiueo.html">五十音</a>から引けます。</p>
   </section>
-  <div class="grid">{cards}</div>
+  {latest}
+  <section>
+    <h2 class="sechead">事典</h2>
+    <div class="grid">{cards}</div>
+  </section>
 </main>
-""".format(n=len(entries), cards=cards)
+""".format(n=len(entries), latest=latest, cards="".join(card(e) for e in entries))
     write("index.html",
           page("世界オカルト大全 — 世界の怪異と未確認現象の事典",
-               "世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典。%d項目を五十音・国別・分野別から引けます。" % len(entries),
+               "世界じゅうの怪異、未確認生物、古代の謎、消えた文明、都市伝説を集めた事典。%d項目を五十音・国別・分野別から引けます。オカルト最新ニュースも週1で更新。" % len(entries),
                SITE + "/", body, current="top", ogtype="website"))
 
 
 def build_aiueo(entries):
-    rows = []
-    nav = []
-    for g, chars in GYO:
-        items = sorted([e for e in entries if gyo_of(e["yomi"]) == g],
-                       key=lambda x: x["yomi"])
+    rows, nav = [], []
+    for g, _ in GYO:
+        items = sorted([e for e in entries if gyo_of(e["yomi"]) == g], key=lambda x: x["yomi"])
         if not items:
             continue
         nav.append('<a href="#g-%s">%s</a>' % (g, g))
@@ -282,26 +363,23 @@ def build_aiueo(entries):
 </article>
 </main>
 """.format(n=len(entries), nav="".join(nav), rows="".join(rows))
-    write("aiueo.html",
-          page("五十音索引 — 世界オカルト大全",
-               "世界オカルト大全の全項目を、読みの五十音順に並べた索引です。",
-               SITE + "/aiueo.html", body, current="aiueo", ogtype="website"))
+    write("aiueo.html", page("五十音索引 — 世界オカルト大全",
+                             "世界オカルト大全の全項目を、読みの五十音順に並べた索引です。",
+                             SITE + "/aiueo.html", body, current="aiueo", ogtype="website"))
 
 
 def build_group(entries, key, order, fname, h1, desc, current):
-    secs = []
-    nav = []
     groups = {}
     for e in entries:
         groups.setdefault(e[key], []).append(e)
     keys = [k for k in order if k in groups] + sorted(k for k in groups if k not in order)
-    for k in keys:
+    nav, secs = [], []
+    for i, k in enumerate(keys):
         items = sorted(groups[k], key=lambda x: x["yomi"])
-        anchor = "g%d" % keys.index(k)
-        nav.append('<a href="#%s">%s<span>%d</span></a>' % (anchor, esc(k), len(items)))
-        secs.append('<section class="gyo" id="%s"><h2>%s<span class="cnt">%d項目</span></h2>'
+        nav.append('<a href="#g%d">%s<span>%d</span></a>' % (i, esc(k), len(items)))
+        secs.append('<section class="gyo" id="g%d"><h2>%s<span class="cnt">%d項目</span></h2>'
                     '<div class="grid small">%s</div></section>'
-                    % (anchor, esc(k), len(items), "".join(card(e) for e in items)))
+                    % (i, esc(k), len(items), "".join(card(e) for e in items)))
     body = """
 <main class="wrap">
 <article>
@@ -312,17 +390,18 @@ def build_group(entries, key, order, fname, h1, desc, current):
 </article>
 </main>
 """.format(h1=esc(h1), desc=esc(desc), nav="".join(nav), secs="".join(secs))
-    write(fname, page("%s — 世界オカルト大全" % h1, desc,
-                      "%s/%s" % (SITE, fname), body, current=current, ogtype="website"))
+    write(fname, page("%s — 世界オカルト大全" % h1, desc, "%s/%s" % (SITE, fname),
+                      body, current=current, ogtype="website"))
 
 
 def build_sitemap(entries):
-    urls = ["", "aiueo.html", "kuni.html", "bunya.html", "about.html", "privacy.html"]
-    urls += ["%s.html" % e["slug"] for e in entries]
+    urls = ["", "news.html", "aiueo.html", "kuni.html", "bunya.html",
+            "about.html", "privacy.html"] + ["%s.html" % e["slug"] for e in entries]
     rows = "".join(
         "  <url><loc>%s/%s</loc><changefreq>%s</changefreq><priority>%s</priority></url>\n"
-        % (SITE, u, "weekly" if u in ("", "aiueo.html", "kuni.html", "bunya.html") else "monthly",
-           "1.0" if u == "" else "0.7")
+        % (SITE, u,
+           "weekly" if u in ("", "news.html", "aiueo.html", "kuni.html", "bunya.html") else "monthly",
+           "1.0" if u == "" else ("0.9" if u == "news.html" else "0.7"))
         for u in urls)
     write("sitemap.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -334,9 +413,11 @@ def main():
     entries = load_entries()
     if not entries:
         sys.exit("content/ に項目がありません")
+    news = load_news()
     for e in entries:
         build_entry(e, entries)
-    build_top(entries)
+    build_top(entries, news)
+    build_news(news)
     build_aiueo(entries)
     build_group(entries, "country", [], "kuni.html", "国別索引",
                 "項目を国・地域ごとにまとめています。", "kuni")
@@ -344,10 +425,11 @@ def main():
                 "項目を13の分野に分けています。", "bunya")
     build_sitemap(entries)
     noimg = [e["title"] for e in entries if not e.get("image")]
-    print("生成完了: %d項目 + 索引3枚" % len(entries))
-    print("画像なしの項目: %d件" % len(noimg))
-    if noimg:
-        print("  " + "、".join(noimg[:12]) + ("…" if len(noimg) > 12 else ""))
+    nosrc = [e["title"] for e in entries if not e["sources"]]
+    print("生成完了: %d項目 / ニュース%d件 / 索引3枚" % (len(entries), len(news)))
+    print("画像なし: %d件" % len(noimg))
+    if nosrc:
+        print("[注意] 出典リンクなし: " + "、".join(nosrc))
 
 
 main()

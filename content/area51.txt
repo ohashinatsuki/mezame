@@ -6,12 +6,14 @@ country: アメリカ合衆国
 region: 北アメリカ
 category: UFO・UAP
 summary: ネバダ州の砂漠にある米空軍の秘密施設。存在自体が長く否定されていたが、2013年に機密解除文書で公式に認められた。UFO伝説の中心地。
+source: CIA電子閲覧室（FOIA Reading Room） | https://www.cia.gov/readingroom/collection/u-2-program-history | U-2計画に関する機密解除文書。エリア51の存在が記載されている
+source: 米国立公文書館「Project BLUE BOOK」 | https://www.archives.gov/research/military/air-force/ufos | 米軍のUFO調査記録
 ---
 <p>ラスベガスから北西へ約130キロ。乾いた塩湖のほとりに、地図に載らない飛行場がある。周囲は立ち入り禁止で、無断侵入者には致死的な武力の使用が警告されている。</p>
 
 <h2>2013年、存在が公式に認められた</h2>
 <div class="fact">
-<b>確認されていること：</b>米中央情報局（CIA）は2013年、情報公開請求に応じて U-2 偵察機に関する文書を機密解除した。その中で「グルームレイク」の名称と地図上の位置が明記され、<b>施設の存在が初めて公式に認められた</b>。それまで米政府は存在の有無について回答を拒み続けていた。
+<b>確認されていること：</b>米中央情報局（CIA）は2013年、情報公開請求に応じて <a href="https://www.cia.gov/readingroom/collection/u-2-program-history" target="_blank" rel="noopener">U-2 偵察機に関する文書</a> を機密解除した。その中で「グルームレイク」の名称と地図上の位置が明記され、<b>施設の存在が初めて公式に認められた</b>。それまで米政府は存在の有無について回答を拒み続けていた。
 </div>
 
 <h2>何をしていた場所か</h2>
@@ -25,6 +27,3 @@ summary: ネバダ州の砂漠にある米空軍の秘密施設。存在自体�
 
 <h2>「突入」騒動</h2>
 <p>2019年、SNS上で「エリア51に突入しよう」という呼びかけが冗談として始まり、200万人以上が参加を表明する事態になった。当日、現地に集まったのは数千人で、実際に施設へ向かった数人が拘束された。<b>ネットミームが現実の警備動員を引き起こした事例</b>として記録されている。</p>
-
-<h2>出典</h2>
-<p class="src">CIA機密解除文書 "The Central Intelligence Agency and Overhead Reconnaissance: The U-2 and OXCART Programs"（2013年公開）、米国立公文書館所蔵資料、各種報道による。</p>
