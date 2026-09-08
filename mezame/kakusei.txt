@@ -12,7 +12,6 @@ source: Spiritual crisis（英語版ウィキペディア） | https://en.wikipe
 image_source: https://commons.wikimedia.org/wiki/File:Merian_Metamorphosis_VI.jpg
 image: kakusei.jpg
 image_credit: マリア・ジビーラ・メーリアン『スリナム産昆虫の変態』（1705）より ／ Maria Sibylla Merian ／ Public domain ／ ウィキメディア・コモンズ
-image_source: https://commons.wikimedia.org/wiki/File:Merian_Metamorphosis_VI.jpg
 ---
 <p>ある時期から、自分が変わってしまった。前は楽しかったことに興味がなくなり、大事だった人たちが、どこか遠くなった。夜中に目が覚める。昔のことが、何度も思い出される。そして、ときどき、自分はおかしくなったのではないかと思う。</p>
 
