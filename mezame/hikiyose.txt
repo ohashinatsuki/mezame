@@ -1,7 +1,7 @@
 slug: hikiyose
 title: 引き寄せの法則
 en: law of attraction / manifestation
-yomi: ひきよせ
+yomi: ひきよせのほうそく
 tags: 実践
 summary: 願っているのに、叶わない。何をすれば「引き寄せ」になるのか。悪いことが起きたのは自分の考えのせいなのか。それぞれの悩みに、この考え方を広めた人たちと、心理学者が何と言っているか。英語圏と日本語で最も見られている動画の話し手（講演家、都市伝説の語り手、作家、公認心理師）がそれぞれ何と言っているかも並べます。
 source: Law of attraction (New Thought)（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Law_of_attraction_(New_Thought) | 19世紀からの来歴と、批判

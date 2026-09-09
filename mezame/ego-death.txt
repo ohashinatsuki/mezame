@@ -1,7 +1,7 @@
 slug: ego-death
 title: エゴデス
 en: ego death / loss of identity
-yomi: じぶんがだれかわからなくなった
+yomi: えごです
 tags: 目覚め
 summary: 鏡を見て、映っている顔が自分だと思えなかった。好きだったものが嫌いになり、着る服も決められない。家族に「前のあなたに戻って」と言われる。この分野で「エゴの死」と呼ばれ、六つの症状と二つの方法が挙げられているもの。心理学が「エゴの死」「アイデンティティの危機」と呼んできたものと、この経験を「象徴的な死」と書いた精神科医のこと。
 source: Christina Lopes, When You Don't Know Who You Are Anymore...[WATCH THIS!]（YouTube） | https://www.youtube.com/watch?v=DL5tq4bT7p4 | マンデラの話、2014年の鏡の経験、三つの段階（出現、エゴの死、第三チャクラが空になる）、六つの症状、二つの方法。引用は自動生成の字幕による

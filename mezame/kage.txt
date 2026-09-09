@@ -1,7 +1,7 @@
 slug: kage
 title: シャドーワーク
 en: shadow work
-yomi: かげ
+yomi: しゃどーわーく
 tags: 実践
 summary: 人の嫌なところが気になって仕方ない。同じ失敗を繰り返す。急に怒りが噴き出す。自分を責めてしまう。そうした「自分の見たくない部分」とどう向き合えばよいと言われているか。
 source: Christina Lopes, What Is SHADOW WORK? [5 Effective Ways To Do It!]（YouTube） | https://www.youtube.com/watch?v=5kDN7g9kBAs | 影の見つけ方4つと、向き合い方。引用は自動生成の字幕による

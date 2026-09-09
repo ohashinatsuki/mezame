@@ -1,7 +1,7 @@
 slug: purpose
 title: ライフパーパス
 en: life purpose / soul mission
-yomi: たましいのしめい
+yomi: らいふぱーぱす
 tags: 生き方
 summary: 自分が何のために生まれてきたのか、分からない。「使命を生きなさい」と言われるほど、焦る。このまま何も見つけないで終わるのが怖い。この分野では、「使命は探しに行くものではない」と言われ、四つの方法が挙げられています。日本語の「生きがい」の来歴と、強制収容所を生き延びた精神科医が「意味」について書いたことも。
 source: Christina Lopes, Why You Should NEVER Chase Your Life Purpose. [Do This Instead!]（YouTube） | https://www.youtube.com/watch?v=lzTNuAlC6CA | 魂の二つの真実、追いかけると逆効果になる理由、パンくずの道、四つの方法。引用は字幕による

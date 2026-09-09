@@ -1,7 +1,7 @@
 slug: mind
 title: モンキーマインド
 en: overactive mind / monkey mind
-yomi: あたまのなかがしずまらない
+yomi: もんきーまいんど
 tags: 目覚め
 summary: 考えが止まらない。夜中に目が覚めて、頭が回りはじめる。瞑想しようとしても、五分ともたない。「頭を静めなさい」と言われるけれど、どうすれば。この分野で名前の知られた人が、四年の隠遁生活のあとに街の暮らしで見つけた四つの方法と、「さまよう心」について脳科学が調べてきたこと。「心猿」という古い言葉も。
 source: Christina Lopes, How To Fix A Mind That Never Shuts Up.（YouTube） | https://www.youtube.com/watch?v=seRhnPLlDQo | 四年の隠遁のあと街に移った経験、「浮かぶ僧」という期待を捨てること、四つの方法。引用は字幕による

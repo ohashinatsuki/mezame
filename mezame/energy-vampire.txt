@@ -1,7 +1,7 @@
 slug: energy-vampire
 title: エナジーヴァンパイア
 en: energy vampire / emotional contagion
-yomi: ひとのかんじょうをもらってしまう
+yomi: えなじーゔぁんぱいあ
 tags: つながり
 summary: 人混みで疲れる。誰かと話したあと、理由もなく沈む。どこまでが自分の感情で、どこからが相手のものか分からない。この分野で教えられている「たったひとつの決まり」と、「エネルギーヴァンパイア」という言葉の来歴、心理学が同じ現象につけている名前。
 source: Christina Lopes, How To Know What's My Energy Vs Theirs?（YouTube, #askchristina） | https://www.youtube.com/watch?v=97BStAC6NsM | 「感じているなら、それはあなたのもの」という決まりと、そのあとにすること。引用は自動生成の字幕による

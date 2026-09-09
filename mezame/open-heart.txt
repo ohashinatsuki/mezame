@@ -1,7 +1,7 @@
 slug: open-heart
 title: ハートを開く
 en: how to open your heart
-yomi: こころをひらく
+yomi: はーとをひらく
 tags: つながり
 summary: 人生が、灰色に見える。誰かと付き合っていても、ある距離から先へ、人を入れられない。「心が閉じている」と言われたが、開くとは何をすることなのか。この分野で言われている、閉じているしるし、閉じた理由、開くための四つの手順と三つの練習。「鏡に向かって『愛している』と言う」という練習の来歴と、「自分に優しくすること」を研究してきた心理学の側の言葉。
 source: Christina Lopes, How To Open Your Heart TODAY In 4 Powerful Steps（YouTube） | https://www.youtube.com/watch?v=CQ_k-uADnjQ | 閉じているしるし、閉じた理由、心のブロックを支えている信念、四つの手順、三つの練習。引用は自動生成の字幕による

@@ -1,7 +1,7 @@
 slug: astral
 title: アストラルトラベル
 en: astral projection / out-of-body experience
-yomi: ゆうたいりだつ
+yomi: あすとらるとらべる
 tags: 目覚め
 summary: 眠りかけたとき、体から抜け出て、天井から自分を見下ろしていた。怖かった。戻れなくなるのではないか。あれは何だったのか。わざとできるのか。この分野で語られている「何のためにするのか」「危なくないのか」「五つの手順」と、体外離脱について研究の側が調べてきたこと（10人に1人が経験する、488の文化の89%に言い伝えがある）。
 source: Christina Lopes, The Truth About ASTRAL PROJECTION & How To Do It Properly! [5 Easy Steps]（YouTube） | https://www.youtube.com/watch?v=EdTihHOcS9s | 二つの定義、何のためにするのか、逃避に使わないこと、「銀の緒」、人を覗かないという警告、五つの手順。引用は字幕による

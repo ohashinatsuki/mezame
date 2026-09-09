@@ -1,7 +1,7 @@
 slug: ego
 title: エゴ
 en: ego
-yomi: えごはてきなのか
+yomi: えご
 tags: 目覚め
 summary: 「エゴと闘うのに疲れました。この戦争にどうやって勝てばいいのですか」。エゴとは何だと言われているのか、なぜ「敵と見ること」が罠だと言われるのか、代わりに何をすればよいと言われているのか。「エゴ」という言葉がフロイトから来た経緯、仏教の「我執」と「煩悩即菩提」、そして心の「部分」を敵にしない心理療法の側の言葉。
 source: Christina Lopes, The Ego Is NOT Your Enemy. Here's Why.（YouTube） | https://www.youtube.com/watch?v=Up9-R2klkas | エゴの定義、「敵と見る罠」、幼い日の記憶、なだめる言葉、統合。引用は自動生成の字幕による
