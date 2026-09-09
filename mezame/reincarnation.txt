@@ -1,5 +1,5 @@
 slug: reincarnation
-title: 生まれ変わりの仕組み
+title: 輪廻転生
 en: reincarnation / rebirth
 yomi: うまれかわり
 tags: 魂

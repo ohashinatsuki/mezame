@@ -1,5 +1,5 @@
 slug: surrender
-title: 手放す（サレンダー）
+title: サレンダー
 en: surrender / letting go
 yomi: てばなす
 tags: 生き方

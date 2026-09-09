@@ -1,5 +1,5 @@
 slug: grounding
-title: グラウンディング（地に足をつける）
+title: グラウンディング
 en: grounding / earthing
 yomi: ぐらうんでぃんぐ
 tags: エネルギー

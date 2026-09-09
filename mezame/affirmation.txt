@@ -1,5 +1,5 @@
 slug: affirmation
-title: アファメーションは効くのか
+title: アファメーション
 en: affirmations
 yomi: あふぁめーしょん
 tags: 生き方

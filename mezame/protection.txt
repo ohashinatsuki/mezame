@@ -1,5 +1,5 @@
 slug: protection
-title: 邪気とサイキックアタック
+title: サイキックアタック
 en: psychic attack / energy protection
 yomi: じゃきとさいきっくあたっく
 tags: エネルギー

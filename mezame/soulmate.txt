@@ -1,5 +1,5 @@
 slug: soulmate
-title: ソウルメイトとソウルファミリー
+title: ソウルメイト
 en: soulmate / soul family
 yomi: そうるめいと
 tags: つながり

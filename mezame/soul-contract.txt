@@ -1,5 +1,5 @@
 slug: soul-contract
-title: ソウルコントラクトとカルマの関係
+title: ソウルコントラクト
 en: soul contract / karmic relationship
 yomi: そうるこんとらくと
 tags: つながり

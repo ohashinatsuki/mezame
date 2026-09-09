@@ -1,5 +1,5 @@
 slug: ascendant
-title: アセンダント（上昇宮）
+title: アセンダント
 en: ascendant / rising sign
 yomi: あせんだんと
 tags: 占星術

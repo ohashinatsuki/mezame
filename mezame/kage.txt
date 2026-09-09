@@ -1,5 +1,5 @@
 slug: kage
-title: 影（シャドウワーク）
+title: シャドーワーク
 en: shadow work
 yomi: かげ
 tags: 実践

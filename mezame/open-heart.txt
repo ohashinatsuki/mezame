@@ -1,5 +1,5 @@
 slug: open-heart
-title: 心を開く
+title: ハートを開く
 en: how to open your heart
 yomi: こころをひらく
 tags: つながり

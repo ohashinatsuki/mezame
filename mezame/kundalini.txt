@@ -1,5 +1,5 @@
 slug: kundalini
-title: クンダリーニ覚醒
+title: クンダリーニ
 en: kundalini awakening
 yomi: くんだりーにかくせい
 tags: 目覚め

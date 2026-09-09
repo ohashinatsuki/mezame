@@ -1,5 +1,5 @@
 slug: purpose
-title: 魂の使命が分からない
+title: ライフパーパス
 en: life purpose / soul mission
 yomi: たましいのしめい
 tags: 生き方

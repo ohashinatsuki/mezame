@@ -1,5 +1,5 @@
 slug: synchronicity
-title: シンクロニシティ（意味のある偶然）
+title: シンクロニシティ
 en: synchronicity
 yomi: しんくろにしてぃ
 tags: しるし

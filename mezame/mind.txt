@@ -1,5 +1,5 @@
 slug: mind
-title: 頭のなかが静まらない
+title: モンキーマインド
 en: overactive mind / monkey mind
 yomi: あたまのなかがしずまらない
 tags: 目覚め

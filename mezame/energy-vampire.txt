@@ -1,5 +1,5 @@
 slug: energy-vampire
-title: 人の感情をもらってしまう
+title: エナジーヴァンパイア
 en: energy vampire / emotional contagion
 yomi: ひとのかんじょうをもらってしまう
 tags: つながり

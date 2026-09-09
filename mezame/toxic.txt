@@ -1,5 +1,5 @@
 slug: toxic
-title: 一緒にいると疲れる人
+title: トキシックな人
 en: toxic people
 yomi: いっしょにいるとつかれるひと
 tags: つながり
