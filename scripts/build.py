@@ -42,6 +42,7 @@ CONTENT = os.path.join(ROOT, "content")
 NEWS_PATH = os.path.join(ROOT, "news.json")
 SITE = "https://ohashinatsuki.github.io/mezame"
 MEZAME = []
+SPIRAL = []
 
 REQUIRED = ["slug", "title", "yomi", "country", "region", "category", "summary"]
 FEATURES = []
@@ -209,7 +210,7 @@ FOOT = """
 </html>
 """
 
-NAVKEYS = ["top", "news", "tokushu", "aiueo", "kuni", "bunya", "about"]
+NAVKEYS = ["top", "news", "tokushu", "aiueo", "kuni", "bunya", "about", "spiral"]
 
 # ── セクション定義 ───────────────────────────────────────────
 # めざめ（root）と 怪異と謎（/kaii/）。
@@ -226,6 +227,7 @@ MEZAME_HEADER = """
   <div class="wrap">
     <a href="{u}index.html"{c_top}>トップ</a>
     <a href="{u}mokuji.html"{c_bunya}>もくじ</a>
+    <a href="{u}spiral/index.html"{c_spiral}>スパイラルダイナミクス</a>
     <a href="{u}about.html"{c_about}>このサイトについて</a>
   </div>
 </nav>
@@ -237,6 +239,7 @@ MEZAME_FOOTER = """
   <div class="fnav">
     <a href="{u}index.html">トップ</a>
     <a href="{u}mokuji.html">もくじ</a>
+    <a href="{u}spiral/index.html">スパイラルダイナミクス</a>
     <a href="{u}tools/moon-sign.html">月星座を調べる</a>
     <a href="{u}about.html">このサイトについて</a>
     <a href="{u}privacy.html">プライバシーポリシー</a>
@@ -289,6 +292,7 @@ KAII_FOOTER = """
 SEC = {
     "mezame": {"up": "", "u": "", "header": MEZAME_HEADER, "footer": MEZAME_FOOTER},
     "tools":  {"up": "../", "u": "../", "header": MEZAME_HEADER, "footer": MEZAME_FOOTER},
+    "spiral": {"up": "../", "u": "../", "header": MEZAME_HEADER, "footer": MEZAME_FOOTER},
     "kaii":   {"up": "../", "u": "", "header": KAII_HEADER, "footer": KAII_FOOTER},
 }
 
@@ -303,7 +307,7 @@ def page(title, desc, canon, body, current="", ogtype="article", ogimage="", sec
                         u=d["u"],
                         c_top=cur["top"], c_news=cur["news"], c_tokushu=cur["tokushu"],
                         c_aiueo=cur["aiueo"], c_kuni=cur["kuni"], c_bunya=cur["bunya"],
-                        c_about=cur["about"]))
+                        c_about=cur["about"], c_spiral=cur["spiral"]))
     return h + body + FOOT.format(footer=d["footer"].format(u=d["u"]))
 
 
@@ -709,12 +713,127 @@ def build_mezame_top(entries):
                SITE + "/", body, current="top", ogtype="website", sec="mezame"))
 
 
+def load_spiral():
+    """spiral/*.txt を読む。スパイラルダイナミクスのタブ。前書きは mezame と同じで、
+    order: 1 という行で順番を決める（index → 序論 → 各段階 → 応用と批判）。"""
+    NL = chr(10)
+    SEP = NL + "---" + NL
+    d = os.path.join(ROOT, "spiral")
+    out = []
+    names = sorted(os.listdir(d)) if os.path.isdir(d) else []
+    for fn in names:
+        if not fn.endswith(".txt"):
+            continue
+        raw = io.open(os.path.join(d, fn), encoding="utf-8").read()
+        if SEP not in raw:
+            sys.exit("本文の区切り --- がありません: spiral/%s" % fn)
+        head, body = raw.split(SEP, 1)
+        e = {"sources": []}
+        for line in head.strip().split(NL):
+            if not line.strip() or line.strip().startswith("#"):
+                continue
+            k, v = line.split(":", 1)
+            k, v = k.strip(), v.strip()
+            if k == "source":
+                parts = [x.strip() for x in v.split("|")]
+                e["sources"].append(parts[:3] + [""] * (3 - len(parts)))
+            else:
+                e[k] = v
+        e["body"] = body.strip()
+        for k in ("slug", "title", "order", "summary"):
+            if not e.get(k):
+                sys.exit("%s が足りません: spiral/%s" % (k, fn))
+        if e.get("image") and not e.get("image_credit"):
+            sys.exit("image_credit が足りません: spiral/%s" % fn)
+        e["order"] = int(e["order"])
+        out.append(e)
+    out.sort(key=lambda x: x["order"])
+    slugs = [x["slug"] for x in out]
+    dup = {x for x in slugs if slugs.count(x) > 1}
+    if dup:
+        sys.exit("spiral の slug が重複しています: %s" % dup)
+    return out
+
+
+def scard(e):
+    if e.get("image"):
+        thumb = '<img src="../images/%s" alt="%s" loading="lazy">' % (esc(e["image"]), esc(e["title"]))
+    else:
+        thumb = '<span class="noimg">%s</span>' % esc(e["title"])
+    return ('<a class="card" href="{slug}.html"><span class="thumb">{thumb}</span>'
+            '<span class="cbody"><span class="ctag">{n}</span>'
+            '<span class="ctitle">{title}</span>'
+            '<span class="csum">{summary}</span></span></a>').format(
+        slug=esc(e["slug"]), thumb=thumb, n=esc(e.get("en", "") or ("%d" % e["order"])),
+        title=esc(e["title"]), summary=esc(e["summary"]))
+
+
+def build_spiral_entry(e, entries):
+    img = ""
+    if e.get("image"):
+        cap = esc(e["image_credit"])
+        if e.get("image_source"):
+            cap += ('　<a href="%s" target="_blank" rel="noopener">元ページ</a>'
+                    % esc(e["image_source"]))
+        img = ('<figure class="hero"><img src="../images/%s" alt="%s">'
+               '<figcaption>%s</figcaption></figure>'
+               % (esc(e["image"]), esc(e["title"]), cap))
+    i = entries.index(e)
+    prv = entries[i - 1] if i > 0 else None
+    nxt = entries[i + 1] if i + 1 < len(entries) else None
+    pn = '<div class="prevnext">'
+    pn += ('<a class="prev" href="%s.html">← %s</a>' % (esc(prv["slug"]), esc(prv["title"]))) if prv else '<span></span>'
+    pn += ('<a class="next" href="%s.html">%s →</a>' % (esc(nxt["slug"]), esc(nxt["title"]))) if nxt else '<span></span>'
+    pn += '</div>'
+    crumb = '<p class="crumb"><a href="index.html">スパイラルダイナミクス</a> › %d / %d</p>' % (e["order"], len(entries))
+    body = """
+<main class="wrap">
+<article class="entry">
+  {crumb}
+  <h1>{title}</h1>
+  <p class="lead">{summary}</p>
+  {img}
+  {content}
+  {src}
+  {pn}
+</article>
+</main>
+""".format(crumb=crumb, title=esc(e["title"]), summary=esc(e["summary"]), img=img,
+           content=e["body"], src=srclist(e["sources"]), pn=pn)
+    ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
+    write(os.path.join("spiral", "%s.html" % e["slug"]),
+          page("%s — スパイラルダイナミクス" % e["title"], e["summary"],
+               "%s/spiral/%s.html" % (SITE, e["slug"]), body,
+               current="spiral", ogimage=ogimg, sec="spiral"))
+
+
+def build_spiral_index(entries):
+    body = """
+<main class="wrap">
+  <section class="hero-copy">
+    <h1>スパイラルダイナミクス</h1>
+    <p class="invite">人の価値観が、どんな順番で変わっていくかを描いた地図。</p>
+    <p>心理学者クレア・グレイヴスが1960〜70年代に集めた資料から作られ、1996年にベックとコーワンが本にした理論を、順番に読めるようにしています。段階は人を格付けするものではなく、その人がいま置かれている条件への答え方だ、というのがこの理論の出発点です。上から順にお読みください。</p>
+  </section>
+  <section>
+    <div class="grid">{cards}</div>
+  </section>
+</main>
+""".format(cards="".join(scard(e) for e in entries) or
+           "<p>いま準備しています。もう少しお待ちください。</p>")
+    write(os.path.join("spiral", "index.html"),
+          page("スパイラルダイナミクス — めざめ",
+               "クレア・グレイヴスの理論から生まれた、人の価値観の発達段階の地図。序論、8つの段階、応用と批判。",
+               SITE + "/spiral/", body, current="spiral", ogtype="website", sec="spiral"))
+
+
 def check_walls():
     """めざめ側のページから kaii/ へのリンクが1本でも出ていたら止める。"""
     import glob
     bad = []
     files = (glob.glob(os.path.join(ROOT, "*.html"))
-             + glob.glob(os.path.join(ROOT, "tools", "*.html")))
+             + glob.glob(os.path.join(ROOT, "tools", "*.html"))
+             + glob.glob(os.path.join(ROOT, "spiral", "*.html")))
     for fp in files:
         t = io.open(fp, encoding="utf-8").read()
         for m in re.findall(r'href="([^"]+)"', t):
@@ -730,6 +849,7 @@ def check_walls():
 def build_sitemap(entries):
     urls = (["", "mokuji.html", "about.html", "privacy.html"]
             + ["%s.html" % e["slug"] for e in MEZAME]
+            + ["spiral/"] + ["spiral/%s.html" % e["slug"] for e in SPIRAL]
             + ["kaii/", "kaii/news.html", "kaii/tokushu.html", "kaii/aiueo.html",
                "kaii/kuni.html", "kaii/bunya.html", "kaii/about.html"]
             + ["kaii/%s.html" % e["slug"] for e in entries]
@@ -751,13 +871,17 @@ def main():
     if not entries:
         sys.exit("content/ に項目がありません")
     news = load_news()
-    global FEATURES, MEZAME
+    global FEATURES, MEZAME, SPIRAL
     FEATURES = load_features()
     MEZAME = load_mezame()
+    SPIRAL = load_spiral()
     for e in MEZAME:
         build_mezame_entry(e, MEZAME)
     build_mokuji(MEZAME)
     build_mezame_top(MEZAME)
+    for e in SPIRAL:
+        build_spiral_entry(e, SPIRAL)
+    build_spiral_index(SPIRAL)
     for f in FEATURES:
         build_feature(f, entries)
     build_tokushu(FEATURES)
@@ -774,8 +898,8 @@ def main():
     noimg = [e["title"] for e in entries if not e.get("image")]
     nosrc = [e["title"] for e in entries if not e["sources"]]
     check_walls()
-    print("生成完了: めざめ%d / 怪異%d項目 / 特集%d本 / ニュース%d件"
-          % (len(MEZAME), len(entries), len(FEATURES), len(news)))
+    print("生成完了: めざめ%d / スパイラル%d / 怪異%d項目 / 特集%d本 / ニュース%d件"
+          % (len(MEZAME), len(SPIRAL), len(entries), len(FEATURES), len(news)))
     print("画像なし: %d件" % len(noimg))
     if nosrc:
         print("[注意] 出典リンクなし: " + "、".join(nosrc))

@@ -213,3 +213,9 @@ table.result{margin:14px 0}
 /* トップの呼びかけ */
 .hero-copy .invite{font-family:var(--serif); font-size:clamp(17px,3vw,20px);
   font-weight:700; color:var(--deep); letter-spacing:.06em; margin:0 0 10px}
+
+/* スパイラルダイナミクス: 前へ／次へ */
+.prevnext{display:flex; justify-content:space-between; gap:12px; margin:34px 0 10px; padding-top:18px; border-top:1px solid var(--rule)}
+.prevnext a{font-size:14px; color:var(--ink2); text-decoration:none; max-width:48%}
+.prevnext a:hover{color:var(--accent); text-decoration:underline}
+.prevnext .next{text-align:right; margin-left:auto}
