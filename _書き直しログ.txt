@@ -12,3 +12,7 @@
 16:29 [置き換え] empath.txt  (9513 in / 5639 out)
 16:30 [置き換え] energy-vampire.txt  (6795 in / 3868 out)
 16:30 [置き換え] grounding.txt  (5876 in / 3589 out)
+16:32 [置き換え] higher-self.txt  (8935 in / 5222 out)
+16:35 [元のまま] hikiyose.txt  2回とも検査に落ちた: 引用が消えています: ['病気や事故を本人のせいにする裏面がある']
+16:36 [置き換え] inner-child.txt  (9774 in / 5895 out)
+16:38 [元のまま] kage.txt  2回とも検査に落ちた: 太字が増えています

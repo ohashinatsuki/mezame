@@ -305,6 +305,10 @@ def main():
         out, usage = call(model, FREE_RULES if free else RULES, user)
         out = re.sub(r"^```(?:html)?\s*", "", out)
         out = re.sub(r"\s*```$", "", out).strip()
+        # 太字が増えていたら、元に無い太字だけ外す（Terra は太字を足したがる）
+        if len(re.findall(r"<b>", out)) > len(re.findall(r"<b>", body)):
+            keep = set(re.findall(r"<b>(.*?)</b>", body))
+            out = re.sub(r"<b>(.*?)</b>", lambda m: m.group(0) if m.group(1) in keep else m.group(1), out)
         problems = check(body, out, free)
         tokens = "%s in / %s out" % (usage.get("prompt_tokens", "?"), usage.get("completion_tokens", "?"))
         if not problems:

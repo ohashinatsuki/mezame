@@ -219,7 +219,7 @@ NAVKEYS = ["top", "news", "tokushu", "aiueo", "kuni", "bunya", "about", "spiral"
 MEZAME_HEADER = """
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="{u}index.html"><span class="b1">めざめ</span><span class="b2">AWAKENING</span></a>
+    <a class="brand" href="{u}index.html"><span class="b1">めざめのノート</span><span class="b2">AWAKENING NOTES</span></a>
   </div>
 </header>
 
@@ -244,7 +244,7 @@ MEZAME_FOOTER = """
     <a href="{u}about.html">このサイトについて</a>
     <a href="{u}privacy.html">プライバシーポリシー</a>
   </div>
-  <p><b>めざめ</b> — 皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
+  <p><b>めざめのノート</b> — 皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
 </footer>
 </div>
 """
@@ -284,7 +284,7 @@ KAII_FOOTER = """
   </div>
   <p><b>怪異と謎</b> — 世界の怪異・未確認生物・古代の謎・都市伝説を集めた事典。
   確認されている事実と、語り伝えられている話を、分けて書いています。
-  <a href="../index.html">めざめ</a> も同じ運営者が書いています。</p>
+  <a href="../index.html">めざめのノート</a> も同じ運営者が書いています。</p>
 </footer>
 </div>
 """
@@ -671,7 +671,7 @@ def build_mezame_entry(e, entries):
            content=e["body"], src=srclist(e["sources"]), rel=relhtml)
     ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
     write("%s.html" % e["slug"],
-          page("%s — めざめ" % e["title"], e["summary"],
+          page("%s — めざめのノート" % e["title"], e["summary"],
                "%s/%s.html" % (SITE, e["slug"]), body,
                current="", ogimage=ogimg, sec="mezame"))
 
@@ -688,8 +688,8 @@ def build_mokuji(entries):
 </main>
 """.format(cards="".join(mcard(e) for e in entries) or "<p>準備中です。</p>")
     write("mokuji.html",
-          page("もくじ — めざめ",
-               "めざめに書いてあるものの一覧。ツインレイ、エンパス、月星座。",
+          page("もくじ — めざめのノート",
+               "めざめのノートに書いてあるものの一覧。ツインレイ、エンパス、月星座。",
                SITE + "/mokuji.html", body, current="bunya", ogtype="website", sec="mezame"))
 
 
@@ -697,7 +697,7 @@ def build_mezame_top(entries):
     body = """
 <main class="wrap">
   <section class="hero-copy">
-    <h1>めざめ</h1>
+    <h1>めざめのノート</h1>
     <p class="invite">精神世界を探索してみませんか。</p>
     <p>皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
   </section>
@@ -708,7 +708,7 @@ def build_mezame_top(entries):
 """.format(cards="".join(mcard(e) for e in entries) or
            "<p>いま準備しています。もう少しお待ちください。</p>")
     write("index.html",
-          page("めざめ — ツインレイ・エンパス・月星座",
+          page("めざめのノート — ツインレイ・エンパス・月星座",
                "ツインレイ、エンパス、月星座。皆様の目覚めのきっかけになればと思い、"
                "作成しているサイトです。",
                SITE + "/", body, current="top", ogtype="website", sec="mezame"))
@@ -823,7 +823,7 @@ def build_spiral_index(entries):
 """.format(cards="".join(scard(e) for e in entries) or
            "<p>いま準備しています。もう少しお待ちください。</p>")
     write(os.path.join("spiral", "index.html"),
-          page("スパイラルダイナミクス — めざめ",
+          page("スパイラルダイナミクス — めざめのノート",
                "クレア・グレイヴスの理論から生まれた、人の価値観の発達段階の地図。序論、8つの段階、応用と批判。",
                SITE + "/spiral/", body, current="spiral", ogtype="website", sec="spiral"))
 
