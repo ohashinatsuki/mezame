@@ -219,3 +219,6 @@ table.result{margin:14px 0}
 .prevnext a{font-size:14px; color:var(--ink2); text-decoration:none; max-width:48%}
 .prevnext a:hover{color:var(--accent); text-decoration:underline}
 .prevnext .next{text-align:right; margin-left:auto}
+
+/* 本文中の短い出典（（著者, 年）の形） */
+.cite{font-size:.85em; color:var(--sub, #8a7f76); white-space:nowrap}
