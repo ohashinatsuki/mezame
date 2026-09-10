@@ -10,6 +10,12 @@ source: Hero's journey（英語版ウィキペディア） | https://en.wikipedi
 image: stages.jpg
 image_source: https://commons.wikimedia.org/wiki/File%3ACaspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg
 image_credit: カスパー・ダーヴィト・フリードリヒ「雲海の上の旅人」（1818年ごろ） ／ Caspar David Friedrich ／ Public domain ／ ウィキメディア・コモンズ
+source: Stanislav Grof・Christina Grof『Spiritual Emergency: When Personal Transformation Becomes a Crisis』1989（Internet Archive） | https://archive.org/details/spiritualemergen00grof | 「スピリチュアル・エマージェンシー」という枠組みと、十の型
+source: Stanislav Grof・Christina Grof の同書の紹介（International Journal of Transpersonal Studies） | https://digitalcommons.ciis.edu/ijts-transpersonalstudies/vol36/iss2/5/ | 「病ではなく発達の危機」という主張、鎮静剤への懸念
+source: David Lukoff, Francis Lu, Robert Turner「From Spiritual Emergency to Spiritual Problem: the Transpersonal Roots of the New DSM-IV Category」Journal of Humanistic Psychology, 1998 | https://journals.sagepub.com/doi/10.1177/00221678980382003 | 診断分類「宗教的または霊的な問題」が入るまでの経緯
+source: David Lukoff ほか「DSM-IV Religious and Spiritual Problems」 | https://spiritualcompetency.com/dsm4/dsmrsproblem.pdf | 分類の本文と、精神病と見分けるための目安
+source: Francis Lu「Where Do Religion and Spirituality Appear in DSM-5-TR (2022)?」（デューク大学） | https://spiritualityandhealth.duke.edu/files/2023/06/6-27-23-Francis-Lu.pdf | 最新版でも分類が残っていることの確認
+
 ---
 <p>あの時期は、木も、鳥も、すれ違う人も、すべてがつながって見えた。しるしが次々に来て、導かれている気がした。それが、終わった。いまは、何も感じない。導きが止まった。神と切り離された気がする。自分は何か間違えたのだろうか。そして、これはいつまで続くのか。</p>
 
@@ -96,6 +102,34 @@ image_credit: カスパー・ダーヴィト・フリードリヒ「雲海の上
 <p>上の六段階と並べると、形が見えてきます。「尋牛」は、「人生にはこれ以上の何かがあるはずだ」という<b>目覚め</b>。「見牛」で初めて牛を見る喜びは、<b>至福</b>。「得牛」で暴れる牛と格闘するのは、<b>暗夜</b>。「人牛倶忘」の、ただの円——人も牛もない——は、<b>空白</b>です。「返本還源」の、川が流れ、花が咲いているだけの絵は、<b>根を下ろす</b>こと。そして「入鄽垂手」——町へ戻って、人々のなかで手を差し伸べる——は、六段階の<b>目的と使命</b>、キャンベルの英雄の旅の「帰還」と、同じ場所にあります。</p>
 
 <p>十牛図で興味深いのは、悟りが八番目の「何もない円」で終わらないことです。そのあとに、源へ還る絵と、町へ戻る絵が続く。<b>雲の上にいることは、道の途中であって、終わりではない</b>。「至福は十代で、根を下ろすのが成人」「人の世界へ戻りたくなる」と言われているのは、この十枚目の絵のことです。</p>
+
+<h2>段階として見ることを、精神医学はどう扱ったか</h2>
+
+<p>「目覚めの途中の苦しさは、病ではなく、通過点である」という見方は、この言葉を語る人たちだけのものではありません。精神医学の側にも、同じことを言おうとした流れがあります。</p>
+
+<div class="fact">
+<p>スピリチュアル・エマージェンシー</p>
+
+<p>チェコ生まれの精神科医スタニスラフ・グロフと、妻のクリスティーナ・グロフが1989年の共著で示した言葉です<span class="cite">（Grof, 1989）</span>。ふだんとは違う意識の状態が、感情や知覚や体の症状をともなって現れることがある。それは<b>心の病ではなく、発達の危機として通る段階なのではないか</b>、という主張です。</p>
+
+<p>グロフは、この危機を十の型に分けています。シャーマンの危機、クンダリーニの覚醒、一体感の体験、中心へ戻ることによる心の立て直し、心が開くことによる危機、前世の体験、ガイドとの交信やチャネリング、臨死体験、未確認飛行物体との遭遇の体験、憑依状態。上に挙げた六つの段階と、名前は違っても重なる部分があります。</p>
+
+<p>治療については、鎮静剤は症状を抑えるだけで体験そのものを断ち切ってしまい、結果として人格をやせさせる、と述べています。グロフ夫妻は、専門家だけでなく家族や友人が支えられる場所として、この危機のための支援センターを構想しました。</p>
+</div>
+
+<p>ここで気をつけたいのは、これが精神医学の主流の説ではないという点です。グロフはトランスパーソナル心理学と呼ばれる領域の人で、その枠組み自体に批判もあります。ただ、この流れが、診断の手引きに実際の変化をもたらしました。</p>
+
+<div class="fact">
+<p>診断の手引きに入った「宗教的または霊的な問題」</p>
+
+<p>アメリカ精神医学会の診断の手引き（DSM）には、<b>「宗教的または霊的な問題」</b>という分類があります<span class="cite">（Lukoff ほか, 1998）</span>。信仰を失う、あるいは問い直すことにともなう苦しさ、新しい信仰に移ることで生じる問題、価値観そのものへの問いなどが例として挙げられています。</p>
+
+<p>これは<b>病名ではありません。</b>治療の場で扱う対象ではあるが、心の病とはしない、という置き方です。この分類が入ったこと自体が、苦しい霊的な体験を<b>病でないものとして認めた</b>点で、大きな変化だったとされます。2022年の最新版にも残っています<span class="cite">（Lu, 2023）</span>。</p>
+
+<p>提案したデイヴィッド・ルコフらは、神秘的な体験が、事情を知らない人からは精神病に見えることがあると述べ、見分けるための目安も挙げています。<b>体験の前まで生活が保たれていたか、症状が三か月以内に急に始まったか、きっかけになる出来事があったか、本人が体験を肯定的に受け止めているか</b>。この四つが揃うほど、病ではない側に近いという見立てです<span class="cite">（Lukoff ほか, 1998）</span>。</p>
+</div>
+
+<p>六つの段階も、十牛図も、この分類も、「途中である」という同じ形を持っています。違うのは、誰がそう言っているかと、その言葉が何のために作られたかです。段階の話は先の見通しを与えるために、診断の分類は、苦しんでいる人が病名をつけられずに助けを受けられるようにするために作られました。</p>
 
 <h2>近いことを言っているもの</h2>
 
