@@ -4,3 +4,11 @@
 16:18 [置き換え] ascendant.txt  (4493 in / 2681 out)
 16:21 [置き換え] ascension.txt  (12413 in / 7520 out)
 16:22 [置き換え] astral.txt  (8328 in / 4811 out)
+16:23 [置き換え] aura.txt  (11296 in / 6724 out)
+16:24 [置き換え] chakra.txt  (9050 in / 5420 out)
+16:25 [置き換え] dark-night.txt  (10186 in / 5810 out)
+16:25 [置き換え] ego-death.txt  (8162 in / 4458 out)
+16:28 [元のまま] ego.txt  2回とも検査に落ちた: 太字が増えています
+16:29 [置き換え] empath.txt  (9513 in / 5639 out)
+16:30 [置き換え] energy-vampire.txt  (6795 in / 3868 out)
+16:30 [置き換え] grounding.txt  (5876 in / 3589 out)

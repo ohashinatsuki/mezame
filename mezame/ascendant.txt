@@ -3,7 +3,7 @@ title: アセンダント
 en: ascendant / rising sign
 yomi: あせんだんと
 tags: 占星術
-summary: 自分の星座の説明が、どうも自分に合わない。初対面の人から見た自分と、自分で思う自分が違う。占星術がそこに与えている名前が、アセンダント。太陽・月とあわせて「ビッグスリー」と呼ばれる3つ目。出生時刻が要る理由も。
+summary: 自分の星座より、周囲から受け取られる印象のほうがしっくりくる。アセンダント（上昇宮）とは、生まれた瞬間に東の地平線にあった星座で、第一印象や世界との接点としてどう捉えられるのかを解説します。CHANIとウィキペディアの説明を引き、太陽・月との違い、出生時刻と出生地が必要な理由、ビッグスリーでの位置づけを紹介します。
 source: What's the difference between my Sun, Moon, and rising signs?（CHANI） | https://www.chani.com/astro-education/your-guide-to-sun-moon-and-rising-signs | 太陽・月・上昇宮それぞれの説明と、出生時刻が分からない人への言葉
 source: Ascendant（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Ascendant | 定義、約2時間で変わること、「ホロスコポス」の語源
 image_source: https://commons.wikimedia.org/wiki/File:Caspar_David_Friedrich_-_Morning_in_the_Mountains_-_WGA08248.jpg

@@ -6,6 +6,7 @@
     python scripts/polish.py mezame/empath.txt --model gpt-5.6-sol   （既定は ai.config の EDITOR_MODEL）
     python scripts/polish.py mezame/empath.txt --strict             なめらかにするだけ（既定は自由モード。自分の言葉で書き直す）
     python scripts/polish.py mezame/empath.txt --tag sol            結果を mezame/empath.sol.txt に保存
+    python scripts/polish.py mezame/empath.txt --summary-only       本文は触らず、要約（リード文）だけ本文に合わせて作り直す
 
 APIキーの置き場所（どちらか）:
     ・環境変数 OPENAI_API_KEY
@@ -103,6 +104,51 @@ FREE_RULES = """あなたは日本語のウェブ記事の書き手です。以�
     ただし同じ語尾を3回続けない。
 
 出力は書き直したHTML本文だけ。説明や前置きは書かない。"""
+
+
+SUMMARY_RULES = """あなたは日本語のウェブ記事の編集者です。以下の記事本文（HTML）を読み、ページの冒頭に置くリード文を1つ書いてください。
+検索結果の説明文（メタディスクリプション）にもそのまま使います。
+
+条件:
+- 120〜200文字。1段落。改行しない。HTMLタグを使わない
+- 最初の1文は、読む人が抱えている状況をその人の言葉で短く言い当てる（例:「時計を見るたびに11:11。」）
+- 記事の主題の言葉を前半に自然に入れる（検索で拾われるように）。ただし詰め込まない
+- この記事で何が分かるかを、誰の言葉を引いているかも含めて具体的に
+- 煽らない。「あなたは選ばれた」「知らないと危険」「今すぐ」の型は使わない
+- 次の語は使わない: スピリチュアル、スピ系、オカルト、オカルティック、英語圏、訳語、本来は、正しくは
+- 読む人の行動を推測しない（「〜な人が多い」「〜だと思います」）。運営者の意見や助言を書かない
+- 効果・治癒・金運・恋愛成就を約束しない。「絶対」「必ず」「100%」を使わない
+
+出力はリード文だけ。前置きも説明も書かない。"""
+
+
+def write_summary(model, body):
+    """新しい本文に合わせた要約（リード文）を書かせる。条件に合わなければ None。"""
+    out, usage = call(model, SUMMARY_RULES, body)
+    out = re.sub(r"\s+", " ", out).strip().strip("「」\"'")
+    # 対になっていないかっこを消す（「…。」で始めて外側だけ削れた場合など）
+    depth, cleaned = 0, []
+    for ch in out:
+        if ch == "「":
+            depth += 1
+        elif ch == "」":
+            if depth == 0:
+                continue
+            depth -= 1
+        cleaned.append(ch)
+    out = "".join(cleaned).replace("「", "「") if depth == 0 else "".join(cleaned).replace("「", "")
+    if not (80 <= len(out) <= 260) or "<" in out or any(w in out for w in BANNED):
+        return None, usage
+    return out, usage
+
+
+def replace_summary(head, summary):
+    lines = head.split(chr(10))
+    for i, l in enumerate(lines):
+        if l.startswith("summary:"):
+            lines[i] = "summary: " + summary
+            break
+    return chr(10).join(lines)
 
 
 def default_model():
@@ -234,6 +280,14 @@ def main():
     sep = NL + "---" + NL
     head, body = raw.split(sep, 1)
 
+    if "--summary-only" in sys.argv:
+        summ, usage = write_summary(model, body)
+        if not summ:
+            sys.exit("[要約NG] " + os.path.basename(path) + "  条件に合う要約が返りませんでした")
+        io.open(path, "w", encoding="utf-8", newline=NL).write(replace_summary(head, summ) + sep + body)
+        print("[要約] " + os.path.basename(path) + "  " + summ[:60] + "…")
+        return
+
     # 記事の頭にある要約と出典の一覧を「参考資料」として添える（本文には足させない）
     ref = [l for l in head.splitlines() if l.startswith("summary:") or l.startswith("source:")]
     user = body
@@ -266,6 +320,13 @@ def main():
             print("   - " + p)
         io.open(path.replace(".txt", ".rejected.txt"), "w", encoding="utf-8", newline=NL).write(head + sep + out + NL)
         sys.exit(1)
+
+    if free:
+        summ, _u = write_summary(model, out)
+        if summ:
+            head = replace_summary(head, summ)
+        else:
+            print("   （要約は条件に合わなかったので元のまま）")
 
     if apply:
         io.open(path, "w", encoding="utf-8", newline=NL).write(head + sep + out + NL)
