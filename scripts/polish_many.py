@@ -14,7 +14,7 @@ import sys
 import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOG = os.path.join(ROOT, "mezame", "_書き直しログ.txt")
+LOG = os.path.join(ROOT, "_再挑戦ログ.txt")
 NL = chr(10)
 
 

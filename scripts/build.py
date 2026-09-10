@@ -244,7 +244,7 @@ MEZAME_FOOTER = """
     <a href="{u}about.html">このサイトについて</a>
     <a href="{u}privacy.html">プライバシーポリシー</a>
   </div>
-  <p><b>めざめのノート</b> — 皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
+  <p><b>めざめのノート</b> — ツインレイや月星座などの言葉を、出典とともにたどる資料サイトです。</p>
 </footer>
 </div>
 """
@@ -698,8 +698,8 @@ def build_mezame_top(entries):
 <main class="wrap">
   <section class="hero-copy">
     <h1>めざめのノート</h1>
-    <p class="invite">精神世界を探索してみませんか。</p>
-    <p>皆様の目覚めのきっかけになればと思い、作成しているサイトです。</p>
+    <p class="invite">ツインレイなどの言葉を、出典とともにたどる。</p>
+    <p>ツインレイなどの言葉を、出典とともにたどる資料サイトです。</p>
   </section>
   <section>
     <div class="grid">{cards}</div>
@@ -709,8 +709,8 @@ def build_mezame_top(entries):
            "<p>いま準備しています。もう少しお待ちください。</p>")
     write("index.html",
           page("めざめのノート — ツインレイ・エンパス・月星座",
-               "ツインレイ、エンパス、月星座。皆様の目覚めのきっかけになればと思い、"
-               "作成しているサイトです。",
+               "ツインレイ、エンパス、月星座。さまざまな言葉について、誰がどのように語っているかを"
+               "資料でたどり、出典とともに紹介するノートです。意味や背景を静かに確かめるために。",
                SITE + "/", body, current="top", ogtype="website", sec="mezame"))
 
 
