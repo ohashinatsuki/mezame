@@ -7,8 +7,8 @@ summary: 波動が低いと言われ、悲しむ自分まで責めてしまう�
 source: Christina Lopes, How To RAISE YOUR VIBRATION In 5 Powerful Steps! [Effectively]（YouTube） | https://www.youtube.com/watch?v=yVTFp7LnLjU | 波動の定義、「高い波動＝よい感情」という思い違い、五つの手順、ルーミーの詩、トンレン。引用は字幕による
 source: 江本勝（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E6%B1%9F%E6%9C%AC%E5%8B%9D | 日本語で「波動」がこの意味で広まった経緯（1989年の波動測定器、1999年『水からの伝言』）
 source: 水からの伝言（日本語版ウィキペディア） | https://ja.wikipedia.org/wiki/%E6%B0%B4%E3%81%8B%E3%82%89%E3%81%AE%E4%BC%9D%E8%A8%80 | 本の内容、著者自身の「ポエムであって科学ではない」という言葉、結晶についての説明
-source: Spiritual bypass（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Spiritual_bypass | 「スピリチュアル・バイパス」（ウェルウッド、1984）の定義と、長く続けたときの影響
-source: Expressive suppression（英語版ウィキペディア） | https://en.wikipedia.org/wiki/Expressive_suppression | 感情の表出を抑えることについての研究（グロスとレヴェンソン、1993）
+source: John Welwood 1984「スピリチュアル・バイパス」の定義（Spiritual bypass、英語版ウィキペディア） | https://en.wikipedia.org/wiki/Spiritual_bypass | 「スピリチュアル・バイパス」（ウェルウッド、1984）の定義と、長く続けたときの影響
+source: Gross & Levenson 1993 の実験（Expressive suppression、英語版ウィキペディア） | https://en.wikipedia.org/wiki/Expressive_suppression | 感情の表出を抑えることについての研究（グロスとレヴェンソン、1993）
 image: vibration.jpg
 image_source: https://commons.wikimedia.org/wiki/File:Tsunami_by_hokusai_19th_century.jpg
 image_credit: 葛飾北斎「神奈川沖浪裏」（1831年ごろ） ／ Katsushika Hokusai ／ Public domain ／ ウィキメディア・コモンズ
@@ -20,8 +20,9 @@ source: 三橋弘次「感情労働で燃え尽きたのか？——感情労働
 source: 労働政策研究・研修機構「感情社会学の古典 アリー・ホックシールド『管理される心』」 | https://www.jil.go.jp/institute/zassi/backnumber/2016/04/pdf/036-039.pdf | 感情労働という概念の来歴
 source: Coleman Barks 訳「The Guest House」（カリフォルニア州立大学ノースリッジ校） | https://www.csun.edu/sites/default/files/The%20Guest%20House_Rumi.pdf | 英語で広まった版の本文
 source: 「The Guest House」の来歴（Poem Analysis） | https://poemanalysis.com/rumi/the-guest-house/ | 単独の詩ではなく『マスナヴィー』からの抜粋であること
-source: 「Is a quantum biosensing revolution approaching?」（arXiv、査読つき論文のプレプリント） | https://arxiv.org/pdf/2006.00831 | 心電図と脳波の振幅の比較（約60倍）、心磁図と脳磁図の比較（約5000倍）
+source: Aslam ほか「Is a quantum biosensing revolution approaching?」（arXiv） | https://arxiv.org/pdf/2006.00831 | 心電図と脳波の振幅の比較（約60倍）、心磁図と脳磁図の比較（約5000倍）
 source: 「HeartMath Considered Incoherent」（Slate Star Codex） | https://slatestarcodex.com/2014/07/17/heartmath-considered-incoherent/ | ハートマス研究所の主張への批判。対照群の欠如、研究の実施主体の偏り
+
 ---
 <p>「あなたは波動が低い」と言われたあと、悲しみまで悪いもののように思えてしまうことがあります。落ち込むことは、波動を下げることなのか。明るくふるまえない日は、何かを損ねているのか。</p>
 
@@ -190,7 +191,7 @@ source: 「HeartMath Considered Incoherent」（Slate Star Codex） | https://sl
 <div class="fact">
 <p>感情労働という言葉</p>
 
-<p>表情を作り続けることが人に何をするかは、働く場面でも研究されてきました。アメリカの社会学者アーリー・ホックシールドが『管理される心——感情が商品になるとき』で示した<b>感情労働</b>という言葉です<span class="cite">（Hochschild, 1983）</span>。</p>
+<p>表情を作り続けることが人に何をするかは、働く場面でも研究されてきました。アメリカの社会学者アーリー・ホックシールドが『管理される心——感情が商品になるとき』で示した<b>感情労働</b>という言葉です<span class="cite">（ホックシールド, 1983）</span>。</p>
 
 <p>ホックシールドは、その場で実際に抱いた感情を抑えて、望ましいとされる表情や態度を外に出すことを<b>表層演技</b>、望ましいとされる感情を心の底から感じているように自分の感情そのものを引き起こすことを<b>深層演技</b>と呼んで分けています。そして、労働者が仕事に献身しすぎて燃え尽きる危険にも触れています。</p>
 

@@ -221,4 +221,8 @@ table.result{margin:14px 0}
 .prevnext .next{text-align:right; margin-left:auto}
 
 /* 本文中の短い出典（（著者, 年）の形） */
-.cite{font-size:.85em; color:var(--sub, #8a7f76); white-space:nowrap}
+.cite{font-size:.85em; color:var(--sub, #8a7f76); white-space:nowrap; text-decoration:none;
+      border-bottom:1px dotted var(--border, #e8e1dc)}
+a.cite:hover{color:var(--accent, #b5583f); border-bottom-color:currentColor}
+/* 出典欄で、飛んできた項目を光らせる */
+.srclist li:target{background:var(--accent-soft, #f3e2db); border-radius:6px; padding:4px 8px; margin:0 -8px}

@@ -328,14 +328,52 @@ def card(e):
 
 
 def srclist(sources):
+    """出典欄。各項目に id を振って、本文中の（著者, 年）から飛べるようにする。"""
     if not sources:
         return ""
     lis = "".join(
-        '<li><a href="{u}" target="_blank" rel="noopener">{l}</a>{n}</li>'.format(
-            u=esc(s[1]), l=esc(s[0]),
+        '<li id="src-{i}"><a href="{u}" target="_blank" rel="noopener">{l}</a>{n}</li>'.format(
+            i=i + 1, u=esc(s[1]), l=esc(s[0]),
             n=('<span class="note-s">%s</span>' % esc(s[2])) if s[2] else "")
-        for s in sources)
+        for i, s in enumerate(sources))
     return '<h2>出典・参考</h2><ul class="srclist">%s</ul>' % lis
+
+
+# 本文中の <span class="cite">（著者, 年）</span> を、出典欄への内部リンクにする。
+# 「（」の直後から、最初の「,」「，」「 ほか」「 訳」までを著者名とみなし、
+# 出典のラベルにその名前が含まれるものを探して結びつける。
+CITE_RE = re.compile(r'<span class="cite">（([^）]+)）</span>')
+
+
+def link_cites(body, sources):
+    if not sources:
+        return body
+
+    def key_names(inner):
+        """（Ford ほか, 2018／Barks 訳, 2004）から、照合に使う名前を取り出す"""
+        inner = html.unescape(inner)
+        out = []
+        for chunk in re.split(r"[／/]", inner):
+            m = re.match(r"\s*([^,，]+)", chunk)
+            if not m:
+                continue
+            name = m.group(1)
+            name = re.sub(r"\s*(ほか|訳|編|監修|ら)\s*$", "", name).strip()
+            if name:
+                out.append(name)
+        return out
+
+    def repl(m):
+        inner = m.group(1)
+        for name in key_names(inner):
+            for i, s in enumerate(sources):
+                if name and name.lower() in s[0].lower():
+                    return ('<a class="cite" href="#src-%d">（%s）</a>'
+                            % (i + 1, esc(inner)))
+        # 見つからなければ、そのまま（リンクなし）
+        return m.group(0)
+
+    return CITE_RE.sub(repl, body)
 
 
 def write(path, text):
@@ -375,7 +413,8 @@ def build_entry(e, entries):
 </article>
 </main>
 """.format(cat=esc(e["category"]), country=esc(e["country"]), title=esc(e["title"]),
-           alias=alias, summary=esc(e["summary"]), img=img, content=e["body"],
+           alias=alias, summary=esc(e["summary"]), img=img,
+           content=link_cites(e["body"], e["sources"]),
            src=srclist(e["sources"]), rel=rel)
     ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
     write("kaii/%s.html" % e["slug"],
@@ -539,7 +578,7 @@ def build_feature(f, entries):
 </article>
 </main>
 """.format(title=esc(f["title"]), summary=esc(f["summary"]), img=img,
-           content=f["body"], src=srclist(f["sources"]))
+           content=link_cites(f["body"], f["sources"]), src=srclist(f["sources"]))
     ogimg = "%s/images/%s" % (SITE, f["image"]) if f.get("image") else ""
     write("kaii/%s.html" % f["slug"],
           page("%s — 怪異と謎" % f["title"], f["summary"],
@@ -668,7 +707,7 @@ def build_mezame_entry(e, entries):
 </article>
 </main>
 """.format(en=en, title=esc(e["title"]), summary=esc(e["summary"]), img=img,
-           content=e["body"], src=srclist(e["sources"]), rel=relhtml)
+           content=link_cites(e["body"], e["sources"]), src=srclist(e["sources"]), rel=relhtml)
     ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
     write("%s.html" % e["slug"],
           page("%s — めざめのノート" % e["title"], e["summary"],
@@ -800,7 +839,7 @@ def build_spiral_entry(e, entries):
 </article>
 </main>
 """.format(crumb=crumb, title=esc(e["title"]), summary=esc(e["summary"]), img=img,
-           content=e["body"], src=srclist(e["sources"]), pn=pn)
+           content=link_cites(e["body"], e["sources"]), src=srclist(e["sources"]), pn=pn)
     ogimg = "%s/images/%s" % (SITE, e["image"]) if e.get("image") else ""
     write(os.path.join("spiral", "%s.html" % e["slug"]),
           page("%s — スパイラルダイナミクス" % e["title"], e["summary"],
