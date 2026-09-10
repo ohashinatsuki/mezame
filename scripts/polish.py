@@ -3,7 +3,9 @@
 
     python scripts/polish.py mezame/empath.txt          結果を mezame/empath.polished.txt に保存（元は触らない）
     python scripts/polish.py mezame/empath.txt --apply  検査に通れば元ファイルを置き換える
-    python scripts/polish.py mezame/empath.txt --model gpt-4o
+    python scripts/polish.py mezame/empath.txt --model gpt-5.6-sol   （既定は ai.config の EDITOR_MODEL）
+    python scripts/polish.py mezame/empath.txt --strict             なめらかにするだけ（既定は自由モード。自分の言葉で書き直す）
+    python scripts/polish.py mezame/empath.txt --tag sol            結果を mezame/empath.sol.txt に保存
 
 APIキーの置き場所（どちらか）:
     ・環境変数 OPENAI_API_KEY
@@ -45,7 +47,74 @@ RULES = """あなたは日本語の文章を整える編集者です。以下の
 10. 信じている人が読んで、突き放された・笑われたと感じない調子で書く。断定しない。「〜とされる」「〜と述べている」。
 11. 太字（<b>）は増やさない。減らすのはよい。
 
+そのうえで、読まれる文章にすること:
+12. 冒頭の1〜2文は、読む人が抱えている状況をその人の言葉で言い当てる形にして、先を読みたくなるようにする。
+    ただし煽らない（「あなたは選ばれた」「知らないと危険」「今すぐ」の型は使わない）。
+13. 見出し（<h2>/<h3>）は、記事の主題の言葉（例：ツインレイ、エンパス）と、読む人が検索窓に打つ
+    悩みの言葉（例：離れてしまった、消耗する）を自然に含めた、具体的で短いものにする。
+    抽象的な見出し（「はじめに」「まとめ」「考察」）は具体的な内容に言い換える。
+14. 記事の主題の言葉は、冒頭の段落と各見出しに自然に入れる。同じ語を不自然に何度も繰り返さない。
+15. 段落の最初の1文にその段落の要点を置く。長い文は2つに分けてよい。
+    ただし短い言い切りの連打にはしない。「〜ことがあります」「〜と述べています」のようにゆっくり流す調子は保つ。
+16. 調子は、静か・温かい・落ち着いている・少し文学的。子どもっぽくしない。煽り記事にしない。
+
 出力は整えたHTML本文だけ。説明や前置きは書かない。"""
+
+
+FREE_RULES = """あなたは日本語のウェブ記事の書き手です。以下の下書き（HTML）は素材です。同じ主題・同じ事実・同じ出典を使って、
+あなた自身の記事を書いてください。下書きの文も段落も構成も、なぞる必要はまったくありません。
+別の書き手が同じ材料で一から書いた記事、という気持ちで書いてください。
+
+自由にしてよいこと:
+- 構成を組み替える。話す順番を変える。悩みから入っても、場面から入っても、問いから入ってもよい
+- 段落を増やす、減らす、分ける、つなぐ。見出しを立て直す、増やす、減らす
+- 言い回しを全部変える。比喩、情景、語りかけ、間（ま）を使う。文の長短をつけてリズムを作る
+- 下書きが説明を省いているところを、素材の範囲内でていねいに言葉にする
+- 下書きの冗長なところ、繰り返しを削る
+- 分量は下書きより多くても少なくてもよい（目安は7割〜1.5倍）
+
+絶対に守ること:
+1. 「 」でくくられた引用文（人の言葉・資料の言葉）は、1文字も変えない。漢字とかなの表記、句読点、送りがなも変えない。
+   どの引用文も必ず本文のどこかに残す。文を組み替えるときも、引用文だけは丸ごと持っていくこと。
+   引用文以外の語句を新しく「 」でくくらない（用語の強調に「 」を使わない）。
+2. URL、人名、肩書き、書名、年号、数字は変えない。増やさない。減らさない。
+   リンク（<a href>）は元にあるものをそのまま使う。新しいリンクを足さない。参考資料の出典をリンクにしない。
+3. 新しい事実や主張を足さない。運営者の意見や助言（「〜するとよいでしょう」）を足さない。
+4. HTMLの部品（<p> <h2> <h3> <ul> <li> <div class="fact"> <div class="note"> <table> <a href>）だけで書く。
+   <div class="fact"> と <div class="note"> の中身はその役割のまま残す。
+5. 次の語は地の文で使わない: スピリチュアル、スピ系、オカルト、オカルティック、英語圏、訳語、本来は、正しくは。
+   ただし「 」の引用文の中にこれらの語がある場合は、引用なのでそのまま残す（引用ごと落とさない）。
+6. 「海外が正しくて日本はずれている」と読める書き方をしない。
+7. 読む人の行動を推測する文（「〜な人が多い」「〜だと思います」）を書かない。
+8. 効果・治癒・金運・恋愛成就を約束する表現、「絶対」「必ず」「100%」を使わない。
+9. 信じている人が読んで、突き放された・笑われたと感じない調子で書く。断定しない。「〜とされる」「〜と述べている」。
+10. 太字（<b>）は増やさない。
+11. 水増ししない。言葉を増やすなら、読む人の理解が深まるところにだけ。
+
+読まれる記事にすること:
+12. 冒頭の1〜2文は、読む人が抱えている状況をその人の言葉で言い当てる形にして、先を読みたくなるようにする。
+    短い文で始めてよい。ただし煽らない（「あなたは選ばれた」「知らないと危険」「今すぐ」の型は使わない）。
+13. 見出しは、記事の主題の言葉と、読む人が検索窓に打つ悩みの言葉を自然に含めた、具体的で短いものにする。
+    主題の言葉を全部の見出しに入れる必要はなく、半分くらいでよい。
+    記事の型（悩み → 誰がどう言っているか → 何をすればよいと言われているか → 来歴・整理）は保つが、その中は自由。
+14. 記事の主題の言葉は冒頭の段落に自然に入れる。同じ語を不自然に何度も繰り返さない。
+15. 段落の最初の1文にその段落の要点を置く。
+16. 調子は、静か・温かい・落ち着いている・少し文学的。ゆっくり流れる語り口。子どもっぽくしない。煽り記事にしない。
+    ただし同じ語尾を3回続けない。
+
+出力は書き直したHTML本文だけ。説明や前置きは書かない。"""
+
+
+def default_model():
+    """ai.config の POLISH_MODEL（書き直し用）を既定にする。無ければ EDITOR_MODEL、それも無ければ gpt-5.6-terra。"""
+    p = os.path.join(ROOT, "ai.config")
+    conf = {}
+    if os.path.exists(p):
+        for line in io.open(p, encoding="utf-8"):
+            if "=" in line and not line.startswith("#"):
+                k, v = line.split("=", 1)
+                conf[k.strip()] = v.strip()
+    return conf.get("POLISH_MODEL") or conf.get("EDITOR_MODEL") or "gpt-5.6-terra"
 
 
 def load_key():
@@ -65,12 +134,15 @@ def call(model, system, user):
             "model": model,
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": user}],
-            "temperature": 0.3,
+            # temperature は指定しない（gpt-5.6 系は既定値以外を受け付けない）
         }).encode("utf-8"),
         headers={"Content-Type": "application/json",
                  "Authorization": "Bearer " + load_key()})
-    with urllib.request.urlopen(req, timeout=300) as r:
-        j = json.loads(r.read().decode("utf-8"))
+    try:
+        with urllib.request.urlopen(req, timeout=300) as r:
+            j = json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        sys.exit("APIがエラーを返しました (HTTP %d):\n%s" % (e.code, e.read().decode("utf-8", "replace")[:800]))
     return j["choices"][0]["message"]["content"].strip(), j.get("usage", {})
 
 
@@ -82,25 +154,63 @@ def urls(t):
     return sorted(re.findall(r'href="([^"]+)"', t))
 
 
+CITE_MARK = re.compile(u"^[^「」]{0,15}?(と述べ|と書い|と書か|と語|と記し|と記さ|とある|と説明|と紹介|と話し|と答え|と呼びかけ|と警告|と言っ|と言い|と言わ|とされ|と伝え|と続け|と表現|と定義|と締め|と結ん)")
+
+
+def citations(t):
+    """「 」のうち、人や資料の言葉とみなすもの。
+    ・20文字以上のもの
+    ・8文字以上で、閉じかっこの直後に「と述べている」「とある」などの引用の目印が続くもの
+    用語や言い回しを「 」でくくっただけのものは含めない。"""
+    out = set()
+    for m in re.finditer(r"「([^」]*)」", t):
+        q = m.group(1)
+        if len(q) >= 20:
+            out.add(q)
+        elif len(q) >= 8 and CITE_MARK.search(t[m.end():m.end() + 25]):
+            out.add(q)
+    return out
+
+
 def heads(t):
     return len(re.findall(r"<h[23]>", t))
 
 
-def check(before, after):
+def check(before, after, free=False):
     problems = []
-    if quotes(before) != quotes(after):
-        a, b = set(quotes(before)), set(quotes(after))
-        problems.append("引用が変わっています: 消えた=%s / 増えた=%s" % (sorted(a - b)[:3], sorted(b - a)[:3]))
-    if urls(before) != urls(after):
-        problems.append("URLが変わっています")
-    if heads(before) != heads(after):
+    if free:
+        # 自由モード: 用語を「 」でくくる程度の増減は許す。
+        #   落とすのは (a) 8文字以上の引用（＝人の言葉）が消えた  (b) 元の本文に無い文を「 」で作った  の2つ
+        qb, qa = set(quotes(before)), set(quotes(after))
+        plain_before = re.sub(r"<[^>]+>", "", before)
+        lost = sorted(q for q in citations(before) if q not in qa)
+        made = sorted(q for q in qa - qb if q not in plain_before)
+        if lost:
+            problems.append("引用が消えています: %s" % lost[:3])
+        if made:
+            problems.append("元に無い引用が作られています: %s" % made[:3])
+        ub, ua = set(urls(before)), set(urls(after))
+        if ub - ua:
+            problems.append("リンクが消えています: %s" % sorted(ub - ua)[:3])
+        if ua - ub:
+            problems.append("リンクが増えています: %s" % sorted(ua - ub)[:3])
+    else:
+        if quotes(before) != quotes(after):
+            a, b = set(quotes(before)), set(quotes(after))
+            problems.append("引用が変わっています: 消えた=%s / 増えた=%s" % (sorted(a - b)[:3], sorted(b - a)[:3]))
+        if urls(before) != urls(after):
+            problems.append("URLが変わっています")
+    if free:
+        if heads(after) < 2 or heads(after) > heads(before) + 5:
+            problems.append("見出しの数が極端です: %d -> %d" % (heads(before), heads(after)))
+    elif heads(before) != heads(after):
         problems.append("見出しの数が違います: %d -> %d" % (heads(before), heads(after)))
     for w in BANNED:
         if w in after and w not in before:
             problems.append("使わない語が入っています: " + w)
     if len(re.findall(r"<b>", after)) > len(re.findall(r"<b>", before)):
         problems.append("太字が増えています")
-    if len(after) < len(before) * 0.6:
+    if len(after) < len(before) * 0.55:
         problems.append("本文が短くなりすぎています")
     return problems
 
@@ -111,22 +221,45 @@ def main():
         sys.exit(__doc__)
     path = os.path.join(ROOT, args[0])
     apply = "--apply" in sys.argv
-    model = "gpt-4o"
+    model = default_model()
     if "--model" in sys.argv:
         model = sys.argv[sys.argv.index("--model") + 1]
+    free = "--strict" not in sys.argv    # 既定は自由モード（自分の言葉で書き直す）。--strict でなめらかにするだけ
+    tag = "polished"                     # 保存名: xxx.<tag>.txt
+    if "--tag" in sys.argv:
+        tag = sys.argv[sys.argv.index("--tag") + 1]
 
     raw = io.open(path, encoding="utf-8").read()
     NL = chr(10)
     sep = NL + "---" + NL
     head, body = raw.split(sep, 1)
 
-    # HTMLのコードフェンスで返ってきたら外す
-    out, usage = call(model, RULES, body)
-    out = re.sub(r"^```(?:html)?\s*", "", out)
-    out = re.sub(r"\s*```$", "", out).strip()
-
-    problems = check(body, out)
-    tokens = "%s in / %s out" % (usage.get("prompt_tokens", "?"), usage.get("completion_tokens", "?"))
+    # 記事の頭にある要約と出典の一覧を「参考資料」として添える（本文には足させない）
+    ref = [l for l in head.splitlines() if l.startswith("summary:") or l.startswith("source:")]
+    user = body
+    if ref:
+        user += (NL + NL + "【参考資料】この記事の要約と、本文の元になった出典の一覧です。"
+                 "どこから何を取ってきた記事かを知るためのもので、この内容を本文に新しく足してはいけません:" + NL
+                 + NL.join(ref))
+    # 引用文の一覧を添えて、1文字も変えないよう念を押す
+    qs = quotes(body)
+    if qs:
+        user += (NL + NL + "【確認】次の引用文は、句読点・表記もふくめて1文字も変えずにそのまま残すこと:" + NL
+                 + NL.join("「" + q + "」" for q in qs))
+    for attempt in (1, 2, 3):
+        # HTMLのコードフェンスで返ってきたら外す
+        out, usage = call(model, FREE_RULES if free else RULES, user)
+        out = re.sub(r"^```(?:html)?\s*", "", out)
+        out = re.sub(r"\s*```$", "", out).strip()
+        problems = check(body, out, free)
+        tokens = "%s in / %s out" % (usage.get("prompt_tokens", "?"), usage.get("completion_tokens", "?"))
+        if not problems:
+            break
+        if attempt < 3:
+            print("[やり直し] " + os.path.basename(path) + "  %d回目は検査に落ちました: " % attempt + " / ".join(problems))
+            # 何が悪かったかを具体的に伝えて、もう一度書かせる
+            user += (NL + NL + "【前回の問題】前回の書き直しは次の理由で不合格でした。今回は必ず直すこと:" + NL
+                     + NL.join("- " + pr for pr in problems))
     if problems:
         print("[差し戻し] " + os.path.basename(path) + "  (" + tokens + ")")
         for p in problems:
@@ -138,7 +271,7 @@ def main():
         io.open(path, "w", encoding="utf-8", newline=NL).write(head + sep + out + NL)
         print("[置き換え] " + os.path.basename(path) + "  (" + tokens + ")")
     else:
-        p2 = path.replace(".txt", ".polished.txt")
+        p2 = path.replace(".txt", "." + tag + ".txt")
         io.open(p2, "w", encoding="utf-8", newline=NL).write(head + sep + out + NL)
         print("[保存] " + os.path.basename(p2) + "  (" + tokens + ")  検査は通っています。--apply で置き換え")
 

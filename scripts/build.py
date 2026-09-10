@@ -595,7 +595,8 @@ def load_mezame():
     out = []
     names = sorted(os.listdir(d)) if os.path.isdir(d) else []
     for fn in names:
-        if not fn.endswith(".txt") or fn.endswith((".polished.txt", ".rejected.txt")):
+        if not fn.endswith(".txt") or fn.endswith((".polished.txt", ".rejected.txt",
+                                                   ".draft.txt", ".gpt.txt")):
             continue
         raw = io.open(os.path.join(d, fn), encoding="utf-8").read()
         if SEP not in raw:

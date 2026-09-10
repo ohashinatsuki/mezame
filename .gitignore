@@ -6,3 +6,16 @@ __pycache__/
 *.polished.txt
 *.rejected.txt
 research/
+*.draft.txt
+記事の方針.md
+*.gpt.txt
+
+# 書き直しの途中ファイル（採用したら .txt に置き換える）
+mezame/*.polished.txt
+mezame/*.rejected.txt
+mezame/*-free.txt
+mezame/*.くらべ.txt
+mezame/_書き直しログ.txt
+spiral/*.polished.txt
+spiral/*.rejected.txt
+spiral/*.くらべ.txt
