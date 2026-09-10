@@ -193,7 +193,8 @@ def call(model, system, user):
 
 
 def quotes(t):
-    return sorted(re.findall(r"「([^」]*)」", t))
+    # 引用文の中の太字などのタグは無視して比べる
+    return sorted(re.findall(r"「([^」]*)」", re.sub(r"<[^>]+>", "", t)))
 
 
 def urls(t):
@@ -209,6 +210,7 @@ def citations(t):
     ・8文字以上で、閉じかっこの直後に「と述べている」「とある」などの引用の目印が続くもの
     用語や言い回しを「 」でくくっただけのものは含めない。"""
     out = set()
+    t = re.sub(r"<[^>]+>", "", t)
     for m in re.finditer(r"「([^」]*)」", t):
         q = m.group(1)
         if len(q) >= 20:
