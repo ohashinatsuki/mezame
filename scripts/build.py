@@ -242,6 +242,7 @@ MEZAME_FOOTER = """
     <a href="{u}spiral/index.html">スパイラルダイナミクス</a>
     <a href="{u}tools/moon-sign.html">月星座を調べる</a>
     <a href="{u}about.html">このサイトについて</a>
+    <a href="{u}contact.html">お問い合わせ</a>
     <a href="{u}privacy.html">プライバシーポリシー</a>
   </div>
   <p><b>めざめのノート</b> — ツインレイや月星座などの言葉を、出典とともにたどる資料サイトです。</p>
@@ -887,7 +888,7 @@ def check_walls():
 
 
 def build_sitemap(entries):
-    urls = (["", "mokuji.html", "about.html", "privacy.html"]
+    urls = (["", "mokuji.html", "about.html", "contact.html", "privacy.html"]
             + ["%s.html" % e["slug"] for e in MEZAME]
             + ["spiral/"] + ["spiral/%s.html" % e["slug"] for e in SPIRAL]
             + ["kaii/", "kaii/news.html", "kaii/tokushu.html", "kaii/aiueo.html",
